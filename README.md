@@ -1,6 +1,5 @@
 # Andez_e-Commerce
 
-
 ## Overview
 The Andez e-commerce site is a web application built with React, Next.js, Python, and SQL. It provides a platform for buying and selling items online. The site includes features such as user registration, login and logout, shopping cart functionality, and transaction history. Users can add Site Coins to their account using a fake credit card and use them to purchase items listed on the site. Items for sale are listed with details such as name, price, description, and vendor. Transactions are recorded with the user, items purchased, total price, and transaction date. Refunds can also be issued for specific items.
 
