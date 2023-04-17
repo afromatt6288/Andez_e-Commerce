@@ -6,7 +6,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 # Imports for using .env
-import os  						                    ## os lets us run paths, like the .env or the g.path in the before_request example below ##
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
