@@ -1,12 +1,12 @@
 "use client";
 import Image from 'next/image.js'
 import { Inter } from 'next/font/google'
-import Mainpage from "./Mainpage.js"
+import Homepage from "./components/App.js"
 import { Main } from 'next/document.js'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  // return <Mainpage/>
+  return <Homepage/>
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
