@@ -18,6 +18,9 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
+    transactions = db.relationship('Transaction', backref='user', cascade="all, delete, delete-orphan")
+    items = association_proxy('transactions', 'item')
+
     @hybrid_property
     def password_hash(self):
         raise Exception('Password hashes may not be viewed.')
@@ -69,7 +72,7 @@ class User(db.Model, SerializerMixin):
 class Item(db.Model, SerializerMixin):
     __tablename__ = 'items'
 
-    # serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     ## still need name, price, description, stretch-(vendor_id)
@@ -81,7 +84,7 @@ class Item(db.Model, SerializerMixin):
 class Transaction(db.Model, SerializerMixin):
     __tablename__ = 'transactions'
 
-    # serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     ## still need user_id, item_id, item_price, transaction_date, refund, update_date, (total price will be a front end function)
@@ -94,7 +97,7 @@ class Transaction(db.Model, SerializerMixin):
 class Vendor(db.Model, SerializerMixin):
     __tablename__ = 'vendors'
 
-    # serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     ## still need vendor_name
@@ -106,7 +109,7 @@ class Vendor(db.Model, SerializerMixin):
 class Vendor_Item(db.Model, SerializerMixin):
     __tablename__ = 'vendor_items'
 
-    # serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     ## still need vendor_id, item_id
