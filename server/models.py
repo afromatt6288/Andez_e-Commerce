@@ -4,6 +4,7 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from config import bcrypt,db
 
+
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
@@ -28,7 +29,7 @@ class User(db.Model, SerializerMixin):
     @password_hash.setter
     def password_hash(self, password):
         password_hash = bcrypt.generate_password_hash(
-            password.encode('utf-8'))               # utf-8 encoding and decoding is required in python 3
+            password.encode('utf-8')) 
         self._password_hash = password_hash.decode('utf-8')
 
     def authenticate(self, password):
@@ -69,51 +70,170 @@ class User(db.Model, SerializerMixin):
     def __repr__(self):
         return f'User ID: {self.id}, Username: {self.username}, Email: {self.email}, Address: {self.shipping_address}, Account Balance: {self.account_balance}'
 
+
 class Item(db.Model, SerializerMixin):
     __tablename__ = 'items'
 
-    serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-transactions.item', '-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
-    ## still need name, price, description, stretch-(vendor_id)
+    name = db.Column(db.String, nullable=False)
+    price = db.Column(db.Integer, db.CheckConstraint('price > 0'), nullable=False)
+    description = db.Column(db.String, db.CheckConstraint('len(description) <= 250'))
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    pass
 
-class Transaction(db.Model, SerializerMixin):
+    transactions = db.relationship('Transaction', backref='item', cascade="all, delete, delete-orphan")
+    users = association_proxy('transactions', 'user')
+    vendor_items = db.relationship('Vendor_Item', backref='item', cascade="all, delete, delete-orphan")
+    vendors = association_proxy('vendor_items', 'vendor')
+
+    @validates('name')
+    def validate_itemname(self, key, name):
+        if not name:
+            raise ValueError("Item must have a name")
+        return name
+
+    @validates('price')
+    def validate_itemprice(self, key, price):
+        if not price:
+            raise ValueError("Item must have an price.")
+        elif int(price) < 1:
+            raise ValueError("Item must cost more than 0 Andez Coins.")
+        return price
+
+    @validates('description')
+    def validate_description_length(self, key, description):
+        if len(description) >= 250:
+            raise ValueError("Item Description must be less than or equal to 250 characters long.")
+        return description
+    
+    def __repr__(self):
+        return f'<Item: {self.name}, Price: {self.price}, Description: {self.description}>'
+
+
+class Transaction(db.Model, SerializerMixin): 
     __tablename__ = 'transactions'
 
-    serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-user.transactions', '-item.transactions', '-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
-    ## still need user_id, item_id, item_price, transaction_date, refund, update_date, (total price will be a front end function)
+    refund = db.Column(db.Boolean)
+    
+    created_at = db.Column(db.DateTime, server_default=db.func.now())   ## transaction_date for the front end
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())         ## refund_date for the front end
 
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    pass
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+
+    @validates('user_id')
+    def validate_user_id(self, key, user_id):
+        users = User.query.all()
+        ids = [user.id for user in users]
+        if not user_id:
+            raise ValueError("Transaction must have a user_id")
+        elif int(user_id) not in ids:
+            raise ValueError('Transaction User must exist.')
+        return user_id
+    
+    @validates('item_id')
+    def validate_item_id(self, key, item_id):
+        items = Item.query.all()
+        ids = [item.id for item in items]
+        if not item_id:
+            raise ValueError("Transaction must have a item_id")
+        elif int(item_id) not in ids:
+            raise ValueError('Transaction Item must exist.')
+        return item_id
+
+    def __repr__(self):
+        return f'<Transaction #{self.id}, User: {self.user.username}, Item: {self.item.name}, Price: {self.item.price}, Transaction Date: {self.created_at}>'
+
 
 ## Stretch
 class Vendor(db.Model, SerializerMixin):
     __tablename__ = 'vendors'
 
-    serialize_rules = ('-created_at', '-updated_at',)
+    serialize_rules = ('-vendor_items.vendor', '-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
-    ## still need vendor_name
+    vendor_name = db.Column(db.String, nullable=False)    
+    vendor_email = db.Column(db.String, nullable=False)
+    vendor_address = db.Column(db.String, nullable=False)
+    vendor_account_balance = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    pass
+
+    vendor_items = db.relationship('Vendor_Item', backref='vendor', cascade="all, delete, delete-orphan")
+    items = association_proxy('vendor_items', 'item')
+ 
+    @validates('vendor_name')
+    def validate_name(self, key, vendor_name):
+        vendors = Vendor.query.all()
+        names = [vendor.vendor_name for vendor in vendors]
+        if not vendor_name:
+            raise ValueError("Vendor must have a Name")
+        elif vendor_name in names:
+            raise ValueError("Vendor Name must be unique")
+        return vendor_name
+
+    @validates('vendor_email')
+    def validate_vendor_email(self, key, vendor_email):
+        if not vendor_email:
+            raise ValueError("Vendor must have a Vendor Email")
+        if '@' not in vendor_email:
+            raise ValueError("Vendor failed simple Vendor Email validation")
+        return vendor_email
+
+    @validates('store_address')
+    def validate_store_address(self, key, store_address):
+        if not store_address:
+            raise ValueError("Vendor must have a Store Address")
+        
+    @validates('vendor_account_balance')
+    def validate_vendor_account_balance(self, key, vendor_account_balance):
+        if not vendor_account_balance:
+            raise ValueError("Vendor must have an vendor_account_balance.")
+        elif int(vendor_account_balance) >= 0:
+            raise ValueError("Vendor vendor_account_balance cannot be negative.")
+        return vendor_account_balance
+
+    def __repr__(self):
+        return f'Vendor ID: {self.id}, Name: {self.name}, Email: {self.email}, Store Address: {self.shipping_address}, Account Balance: {self.account_balance}'
+
 
 class Vendor_Item(db.Model, SerializerMixin):
     __tablename__ = 'vendor_items'
 
+    serialize_rules = ('-vendor.vendor_items', '-item.vendor_items', '-created_at', '-updated_at',)
     serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
-    ## still need vendor_id, item_id
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    pass
+
+    vendor_id = db.Column(db.Integer, db.ForeignKey('vendors.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+
+    @validates('vendor_id')
+    def validate_vendor_id(self, key, vendor_id):
+        vendors = Vendor.query.all()
+        ids = [vendor.id for vendor in vendors]
+        if not vendor_id:
+            raise ValueError("Vendor_Item must have a vendor_id")
+        elif int(vendor_id) not in ids:
+            raise ValueError('Vendor_Item Vendor must exist.')
+        return vendor_id
+    
+    @validates('item_id')
+    def validate_item_id(self, key, item_id):
+        items = Item.query.all()
+        ids = [item.id for item in items]
+        if not item_id:
+            raise ValueError("Vendor_Item must have a item_id")
+        elif int(item_id) not in ids:
+            raise ValueError('Vendor_Item Item must exist.')
+        return item_id
