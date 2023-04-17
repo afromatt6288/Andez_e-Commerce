@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image.js'
-import { Inter } from 'next/font/google/index.js'
+import { Inter } from 'next/font/google'
 import Mainpage from "./Mainpage.js"
 import { Main } from 'next/document.js'
 const inter = Inter({ subsets: ['latin'] })
