@@ -11,8 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'BAD_SECRET_KEY'                   ## Replace this with a Real Secret Key AND can put in a .env file
-                                                    ## Run python -c 'import os; print(os.urandom(16))' to get a random password
+app.secret_key = os.environ.get("app.secret_key")                   
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db_name.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
