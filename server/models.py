@@ -86,8 +86,8 @@ class Item(db.Model, SerializerMixin):
 
     transactions = db.relationship('Transaction', backref='item', cascade="all, delete, delete-orphan")
     users = association_proxy('transactions', 'user')
-    vendor_items = db.relationship('Vendor_Item', backref='item', cascade="all, delete, delete-orphan")
-    vendors = association_proxy('vendor_items', 'vendor')
+    vendoritems = db.relationship('VendorItem', backref='item', cascade="all, delete, delete-orphan")
+    vendors = association_proxy('vendoritems', 'vendor')
 
     @validates('name')
     def validate_itemname(self, key, name):
@@ -155,7 +155,7 @@ class Transaction(db.Model, SerializerMixin):
 class Vendor(db.Model, SerializerMixin):
     __tablename__ = 'vendors'
 
-    serialize_rules = ('-vendor_items.vendor', '-created_at', '-updated_at',)
+    serialize_rules = ('-vendoritems.vendor', '-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     vendor_name = db.Column(db.String, nullable=False)    
@@ -166,8 +166,8 @@ class Vendor(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    vendor_items = db.relationship('Vendor_Item', backref='vendor', cascade="all, delete, delete-orphan")
-    items = association_proxy('vendor_items', 'item')
+    vendoritems = db.relationship('VendorItem', backref='vendor', cascade="all, delete, delete-orphan")
+    items = association_proxy('vendoritems', 'item')
  
     @validates('vendor_name')
     def validate_name(self, key, vendor_name):
@@ -204,10 +204,10 @@ class Vendor(db.Model, SerializerMixin):
         return f'Vendor ID: {self.id}, Name: {self.name}, Email: {self.email}, Store Address: {self.shipping_address}, Account Balance: {self.account_balance}'
 
 
-class Vendor_Item(db.Model, SerializerMixin):
-    __tablename__ = 'vendor_items'
+class VendorItem(db.Model, SerializerMixin):
+    __tablename__ = 'vendoritems'
 
-    serialize_rules = ('-vendor.vendor_items', '-item.vendor_items', '-created_at', '-updated_at',)
+    serialize_rules = ('-vendor.vendoritems', '-item.vendoritems', '-created_at', '-updated_at',)
     serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
@@ -223,9 +223,9 @@ class Vendor_Item(db.Model, SerializerMixin):
         vendors = Vendor.query.all()
         ids = [vendor.id for vendor in vendors]
         if not vendor_id:
-            raise ValueError("Vendor_Item must have a vendor_id")
+            raise ValueError("VendorItem must have a vendor_id")
         elif int(vendor_id) not in ids:
-            raise ValueError('Vendor_Item Vendor must exist.')
+            raise ValueError('VendorItem Vendor must exist.')
         return vendor_id
     
     @validates('item_id')
@@ -233,7 +233,7 @@ class Vendor_Item(db.Model, SerializerMixin):
         items = Item.query.all()
         ids = [item.id for item in items]
         if not item_id:
-            raise ValueError("Vendor_Item must have a item_id")
+            raise ValueError("VendorItem must have a item_id")
         elif int(item_id) not in ids:
-            raise ValueError('Vendor_Item Item must exist.')
+            raise ValueError('VendorItem Item must exist.')
         return item_id
