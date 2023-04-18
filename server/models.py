@@ -58,12 +58,13 @@ class User(db.Model, SerializerMixin):
     def validate_shipping_address(self, key, shipping_address):
         if not shipping_address:
             raise ValueError("User must have a shipping_address")
-
+        return shipping_address
+    
     @validates('account_balance')
     def validate_account_balance(self, key, account_balance):
         if not account_balance:
             raise ValueError("User must have an account_balance.")
-        elif int(account_balance) >= 0:
+        elif int(account_balance) <= 0:
             raise ValueError("User account_balance cannot be negative.")
         return account_balance
     
@@ -78,8 +79,10 @@ class Item(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    price = db.Column(db.Integer, db.CheckConstraint('price > 0'), nullable=False)
-    description = db.Column(db.String, db.CheckConstraint('len(description) <= 250'))
+    price = db.Column(db.Integer, db.CheckConstraint('price > 0', name='positive_price'), nullable=False)
+    category = db.Column(db.String, nullable=False)
+    image = db.Column(db.String)
+    description = db.Column(db.String, db.CheckConstraint('len(description) <= 250', name='max_description_length'))
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
@@ -102,6 +105,31 @@ class Item(db.Model, SerializerMixin):
         elif int(price) < 1:
             raise ValueError("Item must cost more than 0 Andez Coins.")
         return price
+
+    @validates('category')
+    def validate_category(self, key, category):
+        # categories = ["Home & Kitchen", "Clothing, Shoes & Jewelry", 
+        #     "Electronics", "Cell Phones & Accessories", "Tools & Home Improvement", 
+        #     "Toys & Games", "Automotive", "Office Products", "Sports & Outdoors", 
+        #     "Patio, Lawn & Garden", "Pet Supplies", "Health & Household", 
+        #     "Industrial & Scientific", "Beauty & Personal Care", "Baby Products", 
+        #     "Arts, Crafts & Sewing", "Appliances", "Video Games", "Handmade Products", 
+        #     "Musical Instruments", "Grocery & Gourmet Food"]
+        categories = [
+        "Tree nuts", "Peanuts", "Seeds", "Coconut", "Nut Butters", 
+        "Nut Oils", "Nut Milk", "Nut Flours", "Special"
+        ]
+        if not category:
+            raise ValueError("Item must have a Category")
+        if category not in categories:
+            raise ValueError("Item Category not found")
+        return category
+
+    @validates('image')
+    def validate_image(self, key, image):
+        if not image:
+            raise ValueError("Item must have an image")
+        return image
 
     @validates('description')
     def validate_description_length(self, key, description):
@@ -196,7 +224,7 @@ class Vendor(db.Model, SerializerMixin):
     def validate_vendor_account_balance(self, key, vendor_account_balance):
         if not vendor_account_balance:
             raise ValueError("Vendor must have an vendor_account_balance.")
-        elif int(vendor_account_balance) >= 0:
+        elif int(vendor_account_balance) <= 0:
             raise ValueError("Vendor vendor_account_balance cannot be negative.")
         return vendor_account_balance
 
