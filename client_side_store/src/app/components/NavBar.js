@@ -15,7 +15,7 @@ function NavBar({ user, setUser }) {
   return (
     <header>
       <div>
-        <Link href={{ pathname: '/home', query: { user: "joe" } }}>Home</Link>
+        <Link href='/home'>Home</Link>
       </div>
       <div>
         {false ? (
