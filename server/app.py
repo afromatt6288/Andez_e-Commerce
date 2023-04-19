@@ -21,19 +21,16 @@ class Home(Resource):
         return response
 api.add_resource(Home, '/')
 
-if __name__ == '__main__':
-    app.run(port=5555, debug=True)
-
     ###########################################
     ##            Logging in/Out             ##
     ##   Session, Authenticating, Password   ##
     ###########################################
 
-@app.before_request
-def check_if_logged_in():
-    access_list = ['clear', 'signup', 'check_session', 'login', ]
-    if (request.endpoint) not in access_list and (not session.get('user_id')):   
-        return {'error': 'Unauthorized'}, 401
+# @app.before_request
+# def check_if_logged_in():
+#     access_list = ['clear', 'signup', 'check_session', 'login', ]
+#     if (request.endpoint) not in access_list and (not session.get('user_id')):   
+#         return {'error': 'Unauthorized'}, 401
 
 class ClearSession(Resource):       ## DEV Only. Don't want users to be able to clear their cookies. 
     def delete(self):    
@@ -224,7 +221,7 @@ class ItemById(Resource):           ## To pull an individual Item out for a deta
             return response 
         return make_response(jsonify({"error": "Item Record not found"}), 404)
 
-    def delete(self, id):           ## To delete an item (as well as any Transactions or Vendor_Items that rely on it)
+    def delete(self, id):           ## To delete an item (as well as any Transactions or VendorItems that rely on it)
         item = Item.query.filter(Item.id == id).first()
         if item:
             db.session.delete(item)
@@ -365,7 +362,7 @@ class VendorById(Resource):
             return response 
         return make_response(jsonify({"error": "Vendor Record not found"}), 404)
 
-    def delete(self, id):           ## To delete a Vendor (and any Vendor_Items it relies on)
+    def delete(self, id):           ## To delete a Vendor (and any VendorItems it relies on)
         vendor = Vendor.query.filter(Vendor.id == id).first()
         if vendor:
             db.session.delete(vendor)
@@ -380,7 +377,7 @@ api.add_resource(VendorById, '/vendors/<int:id>')
 ## VENDOR_ITEM ##
 #################
 
-class Vendor_Items(Resource):
+class VendorItems(Resource):
     def get(self):                  ## Get a list of all item/vendor combinations
         vendoritem_dict_list = []
         for vendoritem in VendorItem.query.all():
@@ -407,7 +404,7 @@ class Vendor_Items(Resource):
         response = make_response(jsonify(vendoritem_dict), 201) 
         return response 
 
-api.add_resource(Vendor_Items, '/vendoritems')
+api.add_resource(VendorItems, '/vendoritems')
 
 class VendorItemById(Resource):
     def get(self, id):              ## To get a specific item sold by a specific vendor - mostly to let an item display the vendor selling it
@@ -444,3 +441,6 @@ class VendorItemById(Resource):
         return make_response(jsonify({"error": "VendorItem Record not found"}), 404)
 
 api.add_resource(VendorItemById, '/vendoritems/<int:id>')
+
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)

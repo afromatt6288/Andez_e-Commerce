@@ -75,7 +75,7 @@ class User(db.Model, SerializerMixin):
 class Item(db.Model, SerializerMixin):
     __tablename__ = 'items'
 
-    serialize_rules = ('-transactions.item', '-created_at', '-updated_at',)
+    serialize_rules = ('-transactions.item', '-vendoritems.item', '-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -236,7 +236,6 @@ class VendorItem(db.Model, SerializerMixin):
     __tablename__ = 'vendoritems'
 
     serialize_rules = ('-vendor.vendoritems', '-item.vendoritems', '-created_at', '-updated_at',)
-    serialize_rules = ('-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
 
