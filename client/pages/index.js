@@ -9,9 +9,9 @@ import { useState } from 'react';
 import App from "./matt_components/App"
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({items, setItems}) {
 
-  return <App></App>
+  return <App items = {items} setItems={setItems}></App>
 
   const [searchTerm, setSearchTerm] = useState("")
   // const searchTerm = 0;

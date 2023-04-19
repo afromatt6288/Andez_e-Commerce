@@ -3,11 +3,13 @@ import ItemItem from "./ItemItem";
 import ItemSearch from "./ItemSearch"
 import { Card } from "semantic-ui-react"
 
-function ItemList({films}) {
+function ItemList({items, setItems}) {
+    console.log("helpmeplz", items)
+    let films = [...items]
     const [search, setSearch] = useState("")
     const [sortBy, setSortBy] = useState("Alphabetical")
     const [filterBy, setFilterBy] = useState("All")
-
+    // const tempFilms = [12,34]
     // handle my Film sort
     const sortedFilms = [...films].sort((film1, film2) => {
         if (sortBy === "Alphabetical") {
