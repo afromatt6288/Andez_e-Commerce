@@ -216,11 +216,12 @@ class Vendor(db.Model, SerializerMixin):
             raise ValueError("Vendor failed simple Vendor Email validation")
         return vendor_email
 
-    @validates('store_address')
-    def validate_store_address(self, key, store_address):
-        if not store_address:
-            raise ValueError("Vendor must have a Store Address")
-        
+    @validates('vendor_address')
+    def validate_vendor_address(self, key, vendor_address):
+        if not vendor_address:
+            raise ValueError("Vendor must have a vendor Address")
+        return vendor_address
+    
     @validates('vendor_account_balance')
     def validate_vendor_account_balance(self, key, vendor_account_balance):
         if not vendor_account_balance:

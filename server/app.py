@@ -188,6 +188,8 @@ class Items(Resource):
             new_item = Item(
                 name=data['name'], 
                 price=int(data['price']),
+                category=data['category'],
+                image=data['image'],
                 description=data['description'], 
                 )
             db.session.add(new_item)
@@ -326,9 +328,9 @@ class Vendors(Resource):
         data=request.get_json()
         try:                                            
             new_vendor = Vendor(
-                vendor_name=data['name'],
-                vendor_email=data['email'],
-                vendor_address=data['address'],
+                vendor_name=data['vendor_name'],
+                vendor_email=data['vendor_email'],
+                vendor_address=data['vendor_address'],
                 vendor_account_balance=int(data['vendor_account_balance']),
                 )
             db.session.add(new_vendor)
