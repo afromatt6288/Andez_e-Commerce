@@ -266,3 +266,6 @@ class VendorItem(db.Model, SerializerMixin):
         elif int(item_id) not in ids:
             raise ValueError('VendorItem Item must exist.')
         return item_id
+
+    def __repr__(self):
+        return f'VendorItem ID: {self.id}, Vendor Name: {self.vendor.vendor_name}, Item: {self.item.name}'
