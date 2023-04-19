@@ -21,21 +21,25 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
           body: JSON.stringify({ username, password }),
         }).then((r) => {
           if (r.ok) {
-            r.json().then((user) => setCurrentUser(user));
+            r.json().then((user) => {
+              setCurrentUser(user)
+              console.log(`login.js line 26 ${user}`)
+            })
             history.push(`/`)
             toggle()
           } else { 
             setInvalidUser(e=>setInvalidUser(!invalidUser))
-    }});
-      }
-
-    function handleNewUser(addUser){
-        onAddUser(addUser)
-        setNewUser(!newUser)
-    }
-
-    function handleLogoutClick() {
-        fetch("/logout", { method: "DELETE" }).then((r) => {
+          }});
+        }
+        
+        function handleNewUser(addUser){
+          onAddUser(addUser)
+          setNewUser(!newUser)
+        }
+        
+      function handleLogoutClick() {
+        console.log(`Login.js line 41 ${currentUser}`)
+        fetch("http://localhost:5555/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             setCurrentUser(null);
           }

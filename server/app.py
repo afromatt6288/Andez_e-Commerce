@@ -7,7 +7,8 @@ import json
 from sqlalchemy.exc import IntegrityError
 from config import app,db,api
 from models import User, Item, Transaction, Vendor, VendorItem
-
+from flask_cors import CORS
+CORS(app)
     ###########################################
     ##                Home API               ##
     ###########################################
@@ -61,6 +62,7 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 class CheckSession(Resource):
     def get(self):
         if session.get('user_id'):
+            print(session['user_id'])
             user = User.query.filter(User.id == session.get('user_id')).first()
             return user.to_dict(), 200 
         return {'message': '401 Unauthorized'}, 401 
@@ -80,10 +82,10 @@ api.add_resource(Login, '/login', endpoint='login')
 
 class Logout(Resource):
     def delete(self):               ## Different from Deleting a User. 
-        if session.get('user_id'):
-            session['user_id'] = None
-            return {'message': '204: No Content'}, 204
-        return {'error': '401 Unauthorized'}, 401
+        # if session.get('user_id'):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
+        # return {'error': '401 Unauthorized'}, 401
 api.add_resource(Logout, '/logout')
 
     ###########################################

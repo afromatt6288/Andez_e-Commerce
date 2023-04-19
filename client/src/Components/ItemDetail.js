@@ -2,84 +2,57 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
 
-function ItemDetail({admin, onFilmDelete}) {
-    const [film, setFilm] = useState(null);
+function ItemDetail({admin, onItemDelete}) {
+    const [item, setItem] = useState(null);
     const { id } = useParams()
     const history = useHistory()
     
     useEffect(() => {
-        fetch(`http://localhost:3001/films/${id}`)
+        fetch(`http://127.0.0.1:5555/items/${id}`)
             .then(r => r.json())
-            .then(data => setFilm(data))
+            .then(data => setItem(data))
     }, [id])
     
-    if (!film) return <h2>Loading...</h2>
+    if (!item) return <h2>Loading...</h2>
     
-    const { title, original_title, original_title_romanised, synopsis, poster, genres, movie_banner, release_date, director, screenwriters, producers, music, rating, running_time, budgetUSD, boxOfficeUSD, awards, reviews, characters} = film
-    const [genre1, genre2] = genres
-    const {rottenTomatoes, imdb} = reviews
+    const { name, description, image, category, price, vendors} = item
     
     function handleDeleteClick() {
-        fetch(`http://localhost:3001/films/${id}`, {
+        fetch(`http://127.0.0.1:5555/items/${id}`, {
           method: "DELETE"
         }) 
-        onFilmDelete(id)
-        history.push(`/films`)       
+        onItemDelete(id)
+        history.push(`/items`)       
     }
     
     return (
         <section>
             <header className="detail-header">
                 <div className="container">
-                    <span className="highlight">{title}</span>
-                </div>
-                <div className="container">
-                    <span className="highlight">{original_title}</span>
-                </div>
-                <div className="container">
-                    <span className="highlight">{original_title_romanised}</span>
+                    <span className="highlight">{name}</span>
                 </div>
             </header>
             <div className="detail-intro">
                 <span>
-                    <label>Genres: <p>{genre1} / {genre2}</p></label> 
-                    <label>Released: <p>{release_date}</p></label>
-                    <label>Running time:<p>{running_time} min</p></label>
-                    <label>Rated: <p>{rating}</p></label>
+                    <label>Category: <p>{category}</p></label> 
+                    <label>Price: <p>{price}</p></label>
                 </span>
-                <p>{synopsis}</p>
-                <span>
-                    <label>Directed by:<p>{director}</p></label> 
-                    <label>Produced by:<p>{producers}</p></label>
-                    <label>Music by:<p>{music}</p></label>
-                    <label>Screenwriters:<p>{screenwriters}</p></label>
-                </span>
-                <h3>Reviews: rottenTomatoes: {rottenTomatoes} / imdb: {imdb}</h3>
-                <h2>Characters:</h2>
-                <div className="film-character-list">
+                <p>{description}</p>
+                <h2>Vendors:</h2>
+                {/* <div className="item-vendor-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {characters.map((character)=> (
+                        {vendors.map((vendor)=> (
                         <div>
-                            <h4>{character.name}</h4>
-                            <Link to={`/characters/${character.id}`}>
-                                <img className="img-thumb" src={character.still} alt={character.name} />
+                            <Link to={`/vendors/${vendor.id}`}>
+                                <h4>{vendor.name}</h4>
                             </Link>
                         </div>
                         ))}
                     </Card.Group>  
-                </div>               
-                <h2>Awards:</h2>
-                <div>{awards}</div>
-                <span>
-                    <label>Budget USD: <p>${budgetUSD}</p></label> 
-                    <label>Box Office USD: <p>${boxOfficeUSD}</p></label>
-                </span>
+                </div>                */}
             </div>
             <div className="detail-image-container">
-                <img className="detail-image" src={poster} alt={title}/>
-            </div>
-            <div className="detail-banner-container">
-                <img className="detail-banner" src={movie_banner} alt={`${title} banner`} />
+                <img className="detail-image" src={image} alt={name}/>
             </div>
             {admin ? (
             <div className="actions">

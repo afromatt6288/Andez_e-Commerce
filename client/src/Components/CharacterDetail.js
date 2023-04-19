@@ -1,38 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 
-function CharacterDetail({admin}) {
-    const [character, setCharacter] = useState(null);
+function VendorDetail({admin}) {
+    const [vendor, setVendor] = useState(null);
     const { id } = useParams()
     const history = useHistory()
     
     useEffect(() => {
-        fetch(`http://localhost:3001/characters/${id}`)
+        fetch(`http://127.0.0.1:5555/vendors/${id}`)
             .then(r => r.json())
-            .then(data => setCharacter(data))
+            .then(data => setVendor(data))
     }, [id])
     
-    if (!character) return <h2>Loading...</h2>
+    if (!vendor) return <h2>Loading...</h2>
     
-    const {name, originalCast, lastEnglishDubbingActor, film, still, gender, age, eye_color, hair_color, species} = character
+    const {name, originalCast, lastEnglishDubbingActor, film, still, gender, age, eye_color, hair_color, species} = vendor
     const {title, poster, movie_banner} = film
     
     function handleDeleteClick() {
-        fetch(`http://localhost:3001/characters/${id}`, {
+        fetch(`http://localhost:3001/vendors/${id}`, {
           method: "DELETE"
         }) 
-        history.push(`/characters`)       
+        history.push(`/vendors`)       
     }
     
     return (
         <section>
-            <header className="character-detail-header">
+            <header className="vendor-detail-header">
                 <div className="container">
                     <span className="highlight">{name}</span>
-                    <img className="character-img" src={still} alt={name}/>
+                    <img className="vendor-img" src={still} alt={name}/>
                 </div>
             </header>
-            <div className="character-detail-intro">
+            <div className="vendor-detail-intro">
                 <span>
                     <label>Age: <p>{age}</p></label> 
                     <label>Hair Color: <p>{hair_color}</p></label>
@@ -78,4 +78,4 @@ function CharacterDetail({admin}) {
     );
 }
 
-export default CharacterDetail;
+export default VendorDetail;

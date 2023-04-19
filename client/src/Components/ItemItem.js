@@ -1,17 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ItemItem({ film }) {
-    const { id, title, poster, release_date, genres} = film
-    const [genre1, genre2] = genres
+function ItemItem({ item }) {
+    const { id, name, image, price, category} = item
 
     return (
-        <div className="film-item">
-            <Link to={`/films/${id}`}>
-                <img className="img-thumb" src={poster} alt={title} />
+        <div className="item-item">
+            <Link to={`/items/${id}`}>
+                <img className="img-thumb" src={image} alt={name} />
             </Link>
-            <p>{genre1}/{genre2}</p>
-            <p>{release_date}</p>
+            <p>{category}</p>
+            <p>{price}</p>
         </div>
     );
 }
