@@ -61,6 +61,8 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 
 class CheckSession(Resource):
     def get(self):
+        print("app.py Line 64 - CheckSession")
+        print(session)
         if session.get('user_id'):
             print(session['user_id'])
             user = User.query.filter(User.id == session.get('user_id')).first()
