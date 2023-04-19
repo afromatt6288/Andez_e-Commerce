@@ -6,9 +6,13 @@ import styles from '@/styles/Home.module.css'
 import NavBar from './components/navbar'
 import StorePage from './components/StorePage'
 import { useState } from 'react';
+import App from "./matt_components/App"
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  return <App></App>
+
   const [searchTerm, setSearchTerm] = useState("")
   // const searchTerm = 0;
   // const setSearchTerm = function (term){return 8}
