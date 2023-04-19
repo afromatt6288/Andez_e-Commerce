@@ -80,7 +80,7 @@ with app.app_context():
     item_1 = Item(
         name="Andez Nuts (Original Flavor)",
         price=4,
-        category="Special",
+        category="Featured Items",
         image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
         description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
     )
@@ -95,7 +95,7 @@ with app.app_context():
     nutflournames = ["coconut flour", "peanut flour", "almond flour", "cashew flour", "hazelnut flour", "macadamia nut flour", "pecan flour", "pine nut flour", "pistachio flour", "walnut flour"]
     categories = [
         "Tree nuts", "Peanuts", "Seeds", "Coconut", "Nut Butters", 
-        "Nut Oils", "Nut Milk", "Nut Flours"
+        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items"
         ]
     descriptions = [
         "Tree nuts: This category includes nuts that grow on trees, such as almonds, cashews, hazelnuts, macadamia nuts, pecans, pine nuts, pistachios, and walnuts.", 
@@ -105,7 +105,9 @@ with app.app_context():
         "Nut Butters: Nut butters, such as peanut butter, almond butter, and cashew butter, are made from ground nuts and are often used as spreads or in cooking and baking.",
         "Nut Oils: Some types of nuts, such as peanuts and walnuts, can be used to make oil that is used in cooking and baking.",
         "Nut Milk: Nut milk, such as almond milk and cashew milk, is made by blending nuts with water and straining out the pulp. Nut milk is often used as a dairy-free alternative to cow's milk.",
-        "Nut Flours: Nut flours, such as almond flour and hazelnut flour, are made by grinding nuts into a fine powder. Nut flours are often used in gluten-free baking."
+        "Nut Flours: Nut flours, such as almond flour and hazelnut flour, are made by grinding nuts into a fine powder. Nut flours are often used in gluten-free baking.",
+        "Featured Items: Our Featured Items are something special. Either it has been with us a long time and was purposely chosen... or the seed file randomly selected it. In either case... it is still special.",
+        f"{fake.sentence()}"
     ]
     for i in range(99):
         category = rc(categories)
@@ -126,6 +128,8 @@ with app.app_context():
             names = nutmilknames
         elif category == "Nut Flours":
             names = nutflournames
+        else:
+            names = ["not_a_nut"]
 
         name = rc(names)
         description = descriptions[index]
