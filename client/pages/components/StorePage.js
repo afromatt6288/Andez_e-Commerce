@@ -1,10 +1,14 @@
 import ItemsDisplay from "./ItemsDisplay"
+import Search from "./Search"
 
-function StorePage({ user, setUser }) {
+function StorePage({setSearchTerm, searchTerm}) {
 
 
 return (
-    <ItemsDisplay></ItemsDisplay>
+    <div>
+        <Search setSearchTerm={setSearchTerm} searchTerm={searchTerm}></Search>
+        <ItemsDisplay setSearchTerm={setSearchTerm} searchTerm={searchTerm}></ItemsDisplay>
+    </div>
 )
 
 }

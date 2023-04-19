@@ -1,14 +1,22 @@
+"use client";
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import NavBar from './components/navbar'
+import StorePage from './components/StorePage'
+import { useState } from 'react';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  
+  const [searchTerm, setSearchTerm] = useState("")
+  // const searchTerm = 0;
+  // const setSearchTerm = function (term){return 8}
   return (
-    <NavBar></NavBar>
+    <div>
+      <NavBar></NavBar>
+      <StorePage setSearchTerm={setSearchTerm} searchTerm={searchTerm}></StorePage>
+    </div>
   )
   
   
