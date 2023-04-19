@@ -13,11 +13,11 @@ function ItemList({items, setItems}) {
     // handle my Film sort
     const sortedFilms = [...films].sort((film1, film2) => {
         if (sortBy === "Alphabetical") {
-            return film1.title.localeCompare(film2.title)
+            return film1.name.localeCompare(film2.title)
         } else if (sortBy === "Date") {
-            const dateA = new Date(film1.release_date);
-            const dateB = new Date(film2.release_date);
-            return dateA.getTime() - dateB.getTime();
+            const priceA = (film1.price);
+            const priceB = e(film2.price);
+            return priceA - priceB;
         }
         return console.log('error on sort')
     })
@@ -29,7 +29,7 @@ function ItemList({items, setItems}) {
     const filteredFilms = sortedFilms.filter((film)=> filterBy === "All" ? sortedFilms : film.genres[0] === filterBy || film.genres[1] === filterBy )
 
     // this is how I am handling the ItemSearch function
-    const displayedFilms = filteredFilms.filter(film => film.title.toLowerCase().includes(search.toLowerCase()))
+    const displayedFilms = filteredFilms.filter(film => film.name.toLowerCase().includes(search.toLowerCase()))
         
     return (
         <section id="films">

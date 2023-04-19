@@ -1,8 +1,7 @@
 import '@/styles/globals.css'
 import { deepStrictEqual } from 'assert'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
 export default function App({ Component, pageProps }) {
   
   
@@ -15,7 +14,7 @@ export default function App({ Component, pageProps }) {
     .then((response) => {
       if (response.ok) {
         response.json()
-        .then((currentUser) => setCurrentUser(currentUser));
+        .then((currentUser) => setCurrentUser(currentUser)).catch((err)=>{console.log("Error")});
       }
     });
   }, []);
@@ -31,12 +30,12 @@ export default function App({ Component, pageProps }) {
   }, [])
   
   // Gather my Item Data
-  const [items, setItems] = useState(null)
+  const [items, setItems] = useState([])
   useEffect(() => {
       fetch("http://localhost:5555/items")
           .then(r => r.json())
           .then(data => {
-              console.log("mayflower", setItems);setItems(data);
+              setItems(data);
           })
   }, [])
 
@@ -57,7 +56,7 @@ export default function App({ Component, pageProps }) {
           .then(r => r.json())
           .then(data => {
               setSpecies(data)     
-          })
+          }).catch((err)=>{console.log("Error")})
       }, [])
 
   // Gather my Vehicles Data
@@ -67,7 +66,7 @@ export default function App({ Component, pageProps }) {
           .then(r => r.json())
           .then(data => {
               setVehicles(data)     
-          })
+          }).catch((err)=>{console.log("Error")})
       }, [])
 
 
@@ -77,5 +76,9 @@ export default function App({ Component, pageProps }) {
 
 
 
-  return <Component {...pageProps} test = {"deepStrictEqual"} users={users} setUsers={setUsers} items = {items} setItems = {setItems} vendors = {vendors} setVendors = {setVendors}/>
+  return (
+  // <DataComponent >
+  <Component {...pageProps } test = {"deepStrictEqual"} users={users} setUsers={setUsers} items = {items} setItems = {setItems} vendors = {vendors} setVendors = {setVendors}/>
+  // {/* </DataComponent>  */}
+  )
 }

@@ -12,72 +12,11 @@ import CharacterNew from "./CharacterNew"
 import Login from "./Login"
 import Users from "./Users"
 
-function App({setItems, items} ) {
+function App({setItems, items, vendors, setVendors, users, setUsers} ) {
     const [currentUser, setCurrentUser] = useState("")
     const [seen, setSeen] = useState(false)
     const admin = currentUser.admin
     
-    // // Gather user data with NEW Methods
-    // useEffect(() => {
-    //   fetch("http://localhost:5555/check_session")
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       response.json()
-    //   .then((currentUser) => setCurrentUser(currentUser));
-    //     }
-    //   });
-    // }, []);
-
-    // // gather my User Data
-    // const [users, setUsers] = useState([]) 
-    // useEffect(() => {
-    //     fetch("http://localhost:5555/users")
-    //         .then(r => r.json())
-    //         .then(data => {
-    //             setUsers(data)
-    //         })
-    // }, [])
-        
-    // // Gather my Item Data
-    // // const [items, setItems] = useState([5,6]);
-    // useEffect(() => {
-    //     fetch("http://localhost:5555/items")
-    //         .then(r => r.json())
-    //         .then(data => {
-    //             console.log("mayflower", setItems);setItems(data);
-    //         })
-    // }, [])
-
-    // // Gather my Vendor Data
-    // const [vendors, setVendors] = useState([]);    
-    // useEffect(() => {
-    //     fetch("http://localhost:5555/vendors")
-    //         .then(r => r.json())
-    //         .then(data => {
-    //             setVendors(data)     
-    //         })
-    // }, [])
-
-    // // Gather my Species Data
-    // const [species, setSpecies] = useState([]);
-    // useEffect(() => {
-    //     fetch("http://localhost:3001/species")
-    //         .then(r => r.json())
-    //         .then(data => {
-    //             setSpecies(data)     
-    //         })
-    //     }, [])
-    
-    // // Gather my Vehicles Data
-    // const [vehicles, setVehicles] = useState([]);
-    // useEffect(() => {
-    //     fetch("http://localhost:3001/vehicles")
-    //         .then(r => r.json())
-    //         .then(data => {
-    //             setVehicles(data)     
-    //         })
-    //     }, [])
-
     // Handle User Add & Delete
     function handleAddUser(addUser) {
         const updatedUsers = [...users, addUser]
