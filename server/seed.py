@@ -24,15 +24,15 @@ with app.app_context():
 ##########################################################
 
     print("Creating Classname(User) data...")
-    new_user_1 = User(username="Admin", email="Admin@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_1 = User(username="Admin", email="Admin@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5, admin=True)
     new_user_1.password_hash = "Admin"
-    new_user_2 = User(username="Matthew", email="Matthew@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_2 = User(username="Matthew", email="Matthew@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_2.password_hash = "Matthew" 
-    new_user_3 = User(username="Preston", email="Preston@flatironschool.com", shipping_address="2282 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_3 = User(username="Preston", email="Preston@flatironschool.com", shipping_address="2282 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_3.password_hash = "Preston"
-    new_user_4 = User(username="Dylan", email="Dylan@flatironschool.com", shipping_address="2822 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_4 = User(username="Dylan", email="Dylan@flatironschool.com", shipping_address="2822 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_4.password_hash = "Dylan"
-    new_user_5 = User(username="Sarah", email="Sarah@flatironschool.com", shipping_address="8222 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_5 = User(username="Sarah", email="Sarah@flatironschool.com", shipping_address="8222 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_5.password_hash = "Sarah"
     users = [new_user_1,new_user_2,new_user_3,new_user_4,new_user_5]
     usernames = ['Admin', 'Matthew', 'Preston', 'Dylan', 'Sarah']
@@ -42,7 +42,7 @@ with app.app_context():
             username = fake.first_name()
         usernames.append(username)
         password = username
-        new_user = User(username=username, email=fake.email(), shipping_address=fake.address(), account_balance=5)
+        new_user = User(username=username, email=fake.email(), shipping_address=fake.address(), account_balance=5, admin=False)
         new_user.password_hash = password
         users.append(new_user)
     print('Adding User objects...')
@@ -78,8 +78,8 @@ with app.app_context():
 
     print("Creating Classname(Item) data...")
     item_1 = Item(
-        name="Andez Nuts",
-        price=5,
+        name="Andez Nuts (Original Flavor)",
+        price=4,
         category="Special",
         image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
         description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",

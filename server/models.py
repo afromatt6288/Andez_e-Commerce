@@ -16,6 +16,7 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, nullable=False)
     shipping_address = db.Column(db.String, nullable=False)
     account_balance = db.Column(db.Integer, nullable=False)
+    admin = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 

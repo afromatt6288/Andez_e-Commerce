@@ -1,3 +1,34 @@
+# Great  Bibli
+ This is a page to view information about great ghibli films (ie, all of them). 
+
+## Setup
+
+All the information about Ghibli films can be found in the `db.json` file. We'll be using `json-server` to create a RESTful API for our database.
+
+Run `npm install` to install our dependencies.
+
+Then, run `npm run server` to start up `json-server` on `http://localhost:3001`.
+
+if it doesn't work, you may need to install `json-server`. You can do that with the command: `npm install -g json-server` 
+
+In another tab/terminal, run `npm start` to start up our React app at `http://localhost:3000`.
+
+
+
+### What it does
+
+You can create a profile that they can they use to log into the page.
+Once Logged in, you can explore the nav bar to read info on the Home tab and About tab.
+The Film tab will be the meat and potatoes of the site though. It lists all of the currently published Studion Ghibli films in a card format. They can be sorted by alphabetical or date of release. And they can be filtered by genre. Lastly, they can be searched through. 
+If you select a movie, it opens to a Film Detail page which shows quite a bit about the movie. It also shows the characters of the movie. You can click on the characters to go to a detail page for them as well. 
+There is also a Character tab that shows all the Ghibli characters. They can be filtered by the film they are in, and their species. And, if you click on them, it will lead to the Character Detail page you saw before. What wasn't mentioned before is that there is a film emblem you can click in the character tab to go to the movie they are in. Yes... both tabs cross reference each other!
+For a normal user the last stop is the Merch tab. I do not have copyrite to sell Ghibli merch, so I provided links to some sites that do have it. 
+
+What I just described was what a normal user would see. If someone logs in who is an Admin, they get an additional nav bar! They cad add a movie, add a character. They can also delete them. Lastly, they get a user tab where they can set users to admin status or delete them. 
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -38,33 +69,3 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
