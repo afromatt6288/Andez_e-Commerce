@@ -9,14 +9,14 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const { id } = useParams()
     const history = useHistory()
     useEffect(() => {
-        fetch(`http://127.0.0.1:5555/items/${id}`)
-        .then(r => r.json())
-        .then(data => {
-            // console.log(data)
-            // console.log(data[0])
-            setItem(data[0])})
-        }, [id])
-        
+        fetch(`/items/${id}`)
+            .then(r => r.json())
+            .then(data => {
+                console.log(data)
+                console.log(data[0])
+                setItem(data[0])})
+    }, [id])
+    
     if (!item) return <h2>Loading...</h2>
     
     const { name, description, image, category, price, vendors} = item
@@ -27,7 +27,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const allvendors = item.vendoritems.map((vi)=>vi.vendor)
     // console.log(item.vendoritems, allvendors)
     function handleDeleteClick() {
-        fetch(`http://127.0.0.1:5555/items/${id}`, {
+        fetch(`/items/${id}`, {
           method: "DELETE"
         }) 
         onItemDelete(id)

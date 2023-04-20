@@ -23,11 +23,3 @@ function Users({users, onUserDelete}) {
 }
 
 export default Users
-
-{/* <div className="item-list">
-<Card.Group className="cards" itemsPerRow={6}>
-    {displayedItems.map((item)=> (
-    <ItemItem key={item.id} item={item} />
-    ))}
-</Card.Group>
-</div> */}
