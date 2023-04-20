@@ -16,31 +16,31 @@ function App() {
     const [currentUser, setCurrentUser] = useState("")
     const [seen, setSeen] = useState(false)
     const [admin, setAdmin] = useState(false)
-    
-  // Update the admin state variable when currentUser changes
-  useEffect(() => {
-    if (currentUser) {
-      setAdmin(currentUser.admin);
-    }
-  }, [currentUser]);
-
+        
     // Gather user data to check if logged in
     useEffect(() => {
-      fetch("http://127.0.0.1:5555/check_session")
-      .then((response) => {
-        if (response.ok) {
-          response.json()
-      .then((currentUser) => {
-        setCurrentUser(currentUser)
-    });
-        }
-      });
+        fetch("/check_session")
+        .then((response) => {
+            if (response.ok) {
+                response.json()
+                .then((currentUser) => {
+                    setCurrentUser(currentUser)
+                });
+            }
+        });
     }, []);
+
+    // Update the admin state variable when currentUser changes
+    useEffect(() => {
+      if (currentUser) {
+        setAdmin(currentUser.admin);
+      }
+    }, [currentUser]);
 
     // gather my User Data
     const [users, setUsers] = useState([]) 
     useEffect(() => {
-        fetch("http://127.0.0.1:5555/users")
+        fetch("/users")
             .then(r => r.json())
             .then(data => {
                 setUsers(data)
@@ -50,7 +50,7 @@ function App() {
     // Gather my Item Data
     const [items, setItems] = useState([]);
     useEffect(() => {
-        fetch("http://127.0.0.1:5555/items")
+        fetch("/items")
             .then(r => r.json())
             .then(data => {
                 setItems(data)
@@ -60,7 +60,7 @@ function App() {
     // Gather my Vendor Data
     const [vendors, setVendors] = useState([]);    
     useEffect(() => {
-        fetch("http://127.0.0.1:5555/vendors")
+        fetch("/vendors")
             .then(r => r.json())
             .then(data => {
                 setVendors(data)     
@@ -101,10 +101,18 @@ function App() {
     }, [cart, CartCounter])
 
     function handleAddToCart(item){
+        console.log(cart)
         console.log(`cart add ${item.id}`)
-        // const itemToAdd = items.filter(item => item.id === id)
         const addToCart = [...cart, item]
         setCart(addToCart)
+        console.log(cart)
+    }
+
+    function handleRemoveFromCart(id){
+        console.log(cart)
+        console.log(`cart remove ${id}`)
+        const removeFromCart = cart.filter(item => item.id !== id)
+        setCart(removeFromCart)
         console.log(cart)
     }
 
@@ -140,7 +148,7 @@ function App() {
                     <Home currentUser={currentUser}/>
                 </Route>
                 <Route exact path="/shoppingcart">
-                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors}/>
+                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors} onRemoveFromCart={handleRemoveFromCart}/>
                 </Route>
                 <Route exact path="/items">
                     <ItemList items={items} vendors={vendors}/>

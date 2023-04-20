@@ -92,6 +92,22 @@ button {
   justify-content: space-between;
 }
 
+.cart-items
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: rgb(190, 13, 13);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 15%;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 .detail-banner{
   height: 85vh;

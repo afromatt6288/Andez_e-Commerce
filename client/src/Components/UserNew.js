@@ -21,7 +21,7 @@ function UserNew({onNewUser, toggle, setUser}) {
                 account_balance: 5,
                 admin: false
         }
-        fetch("http://localhost:5555/signup", {
+        fetch("/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

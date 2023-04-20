@@ -8,7 +8,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const history = useHistory()
     
     useEffect(() => {
-        fetch(`http://127.0.0.1:5555/items/${id}`)
+        fetch(`/items/${id}`)
             .then(r => r.json())
             .then(data => {
                 console.log(data)
@@ -21,7 +21,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const { name, description, image, category, price, vendors} = item
     
     function handleDeleteClick() {
-        fetch(`http://127.0.0.1:5555/items/${id}`, {
+        fetch(`/items/${id}`, {
           method: "DELETE"
         }) 
         onItemDelete(id)

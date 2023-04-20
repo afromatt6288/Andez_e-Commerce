@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useHistory } from "react-router-dom"
 import UserNew from "./UserNew"
 import UserCard from "./UserCard"
-// Log Out
+
 function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onAddUser, onUserDelete}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -24,7 +24,7 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
  
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("http://127.0.0.1:5555/login", {
+        fetch("/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +52,7 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
       function handleLogoutClick() {
         console.log("Login.js Line 42 - for logging out")
         console.log(currentUser)
-        fetch("http://127.0.0.1:5555/logout", { method: "DELETE" }).then((r) => {
+        fetch("/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             setCurrentUser(null);
           }

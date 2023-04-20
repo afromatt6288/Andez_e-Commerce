@@ -8,7 +8,7 @@ function VendorDetail({admin, onVendorDelete}) {
     const history = useHistory()
     
     useEffect(() => {
-        fetch(`http://127.0.0.1:5555/vendors/${id}`)
+        fetch(`/vendors/${id}`)
             .then(r => r.json())
             .then(data => setVendor(data[0]))
     }, [id])
@@ -18,7 +18,7 @@ function VendorDetail({admin, onVendorDelete}) {
     const {vendor_name, vendor_email, vendor_address, vendor_account_balance, items} = vendor
     
     function handleDeleteClick() {
-        fetch(`http://127.0.0.1:5555/vendors/${id}`, {
+        fetch(`/vendors/${id}`, {
           method: "DELETE"
         }) 
         onVendorDelete(id)

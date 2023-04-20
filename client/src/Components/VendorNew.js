@@ -18,7 +18,7 @@ function VendorNew({onVendorAdd}) {
                 vendor_account_balance: vendorAccountBalance,
                 // items: {},
             }
-        fetch("http://localhost:5555/vendors", {
+        fetch("/vendors", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
