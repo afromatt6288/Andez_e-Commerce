@@ -95,7 +95,7 @@ with app.app_context():
     nutflournames = ["coconut flour", "peanut flour", "almond flour", "cashew flour", "hazelnut flour", "macadamia nut flour", "pecan flour", "pine nut flour", "pistachio flour", "walnut flour"]
     categories = [
         "Tree nuts", "Peanuts", "Seeds", "Coconut", "Nut Butters", 
-        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items"
+        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items", "Other"
         ]
     descriptions = [
         "Tree nuts: This category includes nuts that grow on trees, such as almonds, cashews, hazelnuts, macadamia nuts, pecans, pine nuts, pistachios, and walnuts.", 
@@ -128,6 +128,8 @@ with app.app_context():
             names = nutmilknames
         elif category == "Nut Flours":
             names = nutflournames
+        elif category == "Featured Items":
+            names = ["Special Nuts"]
         else:
             names = ["not_a_nut"]
 

@@ -118,7 +118,7 @@ class Item(db.Model, SerializerMixin):
         #     "Musical Instruments", "Grocery & Gourmet Food"]
         categories = [
         "Tree nuts", "Peanuts", "Seeds", "Coconut", "Nut Butters", 
-        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items"
+        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items", "Other"
         ]
         if not category:
             raise ValueError("Item must have a Category")
