@@ -7,7 +7,8 @@ function NavBar({admin}) {
         <nav>
             <NavLink exact to="/">Home</NavLink>
             <NavLink exact to="/items">Items</NavLink>
-            <NavLink exact to="/vendors">Vendors</NavLink>        
+            <NavLink exact to="/vendors">Vendors</NavLink>     
+            <NavLink exact to="/cart">Cart</NavLink>    
         </nav>
         {admin ?  
         <nav className="admin">

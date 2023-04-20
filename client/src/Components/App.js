@@ -8,6 +8,7 @@ import ItemNew from "./ItemNew";
 import VendorList from "./VendorList"
 import VendorDetail from "./VendorDetail";
 import VendorNew from "./VendorNew"
+import Cart from "./Cart"
 import Login from "./Login"
 import Users from "./Users"
 
@@ -118,6 +119,9 @@ function App() {
             {currentUser ? <Switch>
                 <Route exact path="/">
                     <Home currentUser={currentUser}/>
+                </Route>
+                <Route exact path="/cart">
+                    <Cart currentUser={currentUser} items={items} vendors={vendors}/>
                 </Route>
                 <Route exact path="/items">
                     <ItemList items={items} vendors={vendors}/>
