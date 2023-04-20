@@ -45,6 +45,7 @@
   font-size: 1em;
   margin-bottom: -2rem;
   text-shadow: 1px 1px 1px #000000;
+  -webkit-text-stroke: .1px #3c0548; /* for Safari/Chrome */
 }
 
 .app-header h1{
@@ -58,7 +59,7 @@
 }
 
 .background-image-logout {
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUZKbS4evKELpIzbDmj03YH7zm2-migdf4raUb5Yxld_cb_szgU08GPchx_y1EDwuYctY&usqp=CAU");
+  background-image: url("https://media.istockphoto.com/id/1151677865/photo/assorted-nuts-background-large-mix-seeds-raw-food-products-pecan-hazelnuts-walnuts-pistachios.jpg?s=612x612&w=0&k=20&c=9edf1x3jlIe5FI2QTDal6I641SFFK7N3kUwagvoQTXA=");
   background-size: cover;
   background-position: top;
   min-height: 100%;
@@ -70,7 +71,7 @@
 }
 
 .background-image-login {
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUZKbS4evKELpIzbDmj03YH7zm2-migdf4raUb5Yxld_cb_szgU08GPchx_y1EDwuYctY&usqp=CAU");
+  background-image: url("https://www.mashed.com/img/gallery/13-best-keto-nuts-and-seeds-you-should-try-next/intro-1653495352.webp");
   background-size: cover;
   background-position: top;
   min-height: 100%;
@@ -213,10 +214,14 @@ button {
   width: 100%;
   font-size: calc(10px + 2vmin);
   color: white;
+  -webkit-text-stroke: 1.2px #080109
 }
 
 .home {
-  color:#7010ac;
+  color: #f8f5f9;
+  text-shadow: 1px 1px 1px #000000;
+  -webkit-text-stroke: .3px #141414; /* for Safari/Chrome */
+  /* text-stroke: .3px #480567; for other browsers */
 }
 
 .img-thumb {

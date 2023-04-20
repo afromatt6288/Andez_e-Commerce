@@ -86,11 +86,16 @@ function UserCard({user, onUserDelete}) {
                     </>
                 )}
                 <label> Credit Card Number </label>
+                <br/>
                 <input type="number" name="number" onChange={handleCreditCardChange} value={creditCard.number}/>
+                <br/>
                 <label> Exp Date </label> 
+                <br/>
                 <input type="text" name="expiration" onChange={handleCreditCardChange} value={creditCard.expiration}/>
+                <br/>
                 <label> Secret Key </label>
-                <input type="number" name="secret" onChange={handleCreditCardChange} value={creditCard.secret}/>
+                <br/><input type="number" name="secret" onChange={handleCreditCardChange} value={creditCard.secret}/>
+                <br/>
                 <button type="submit" onClick={handleUpdate}>Submit Changes</button>   
             </form>
             <button onClick={handleUserDelete}>Delete Account</button>

@@ -6,7 +6,7 @@ function Home({currentUser}) {
             <section id="home" className="home">
                 <h1 className="header" >
                     Welcome, {currentUser.username}, to Andez E-Commerce</h1>
-                    <small>Formerly Andez Nuts</small>
+
                 <div>
                     <h3>
                         Preston Hunter and Matthew Clark had a dream. What dream you might ask? Well, our dream was to be largest importer and seller of nuts in the world.
