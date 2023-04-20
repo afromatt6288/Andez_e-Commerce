@@ -259,6 +259,7 @@ button {
   border: 5px groove #7010ac; 
   border-radius: 30px;  
   padding: 20px; 
+  
   /* width: flex; */
   /* overflow-y: hidden; */
   /* overflow-y: scroll; */
@@ -629,6 +630,7 @@ button[type="submit"]:hover {
 
 .vendor-item {
   margin: 1%;
+  -webkit-text-stroke: .3px rgb(0, 0, 0);
 }
 
 .vendor-item-list {
