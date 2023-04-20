@@ -13,7 +13,7 @@ function VendorSearch({search, onSearchChange, onHandleItemCategoryFilter, filte
                 <strong> Filter by Item Category:</strong>
                 <select onChange={handleItemCategoryFilter} value={filterByItemCategory}>
                     <option value="All">All</option>
-                    {categories.map((category)=> <option value={category}>{category}</option>)}
+                    {categories.map((category)=> <option key={category} value={category}>{category}</option>)}
                 </select>
             </label>
           <div className="ui icon input">

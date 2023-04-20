@@ -90,8 +90,10 @@ class Item(db.Model, SerializerMixin):
 
     transactions = db.relationship('Transaction', backref='item', cascade="all, delete, delete-orphan")
     users = association_proxy('transactions', 'user')
-    vendoritems = db.relationship('VendorItem', backref='item', cascade="all, delete, delete-orphan")
-    vendors = association_proxy('vendoritems', 'vendor')
+    
+    vendoritems = db.relationship('VendorItem', back_populates='item', cascade="all, delete, delete-orphan")
+    vendors = association_proxy('vendoritems', 'vendor',
+        creator=lambda us: VendorItem(vendor=us))
 
     @validates('name')
     def validate_itemname(self, key, name):
@@ -195,8 +197,9 @@ class Vendor(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    vendoritems = db.relationship('VendorItem', backref='vendor', cascade="all, delete, delete-orphan")
-    items = association_proxy('vendoritems', 'item')
+    vendoritems = db.relationship('VendorItem', back_populates='vendor', cascade="all, delete, delete-orphan")
+    items = association_proxy('vendoritems', 'id',
+        creator=lambda gm: VendorItem(item=gm))
  
     @validates('vendor_name')
     def validate_name(self, key, vendor_name):
@@ -246,6 +249,10 @@ class VendorItem(db.Model, SerializerMixin):
 
     vendor_id = db.Column(db.Integer, db.ForeignKey('vendors.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
+
+    vendor = db.relationship('Vendor', back_populates='vendoritems')
+    item = db.relationship('Item', back_populates='vendoritems')
+
 
     @validates('vendor_id')
     def validate_vendor_id(self, key, vendor_id):

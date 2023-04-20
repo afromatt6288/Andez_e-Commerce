@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function ItemNew({onItemAdd}) {
+function ItemNew({onItemAdd, isVendor}) {
+    console.log(isVendor)
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
@@ -38,7 +39,7 @@ function ItemNew({onItemAdd}) {
     return (
         <section >
             <h3 className="header">Add New Item</h3>
-            <form className="new-item-form" onSubmit={handleSubmit}>
+            <form className="new-vendoritem-form" onSubmit={handleSubmit}>
                 <input type="text" id="name" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
                 <input type="text" id="category" placeholder="Category" value={category} onChange={e => setCategory(e.target.value)} />
                 <input type="text" id="image" placeholder="Image URL" value={image} onChange={e => setImage(e.target.value)} />

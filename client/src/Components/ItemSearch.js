@@ -34,7 +34,7 @@ function ItemSearch({search, onSearchChange, sortBy, onSortChange, onHandleFilte
         <strong>Category Filter:</strong>
         <select onChange={handleFilter} value={filterBy}>
           <option value="All">All</option>
-          {categories.map((category)=> <option value={category}>{category}</option>)}
+          {categories.map((category)=> <option value={category} key = {(category)}>{category}</option>)}
         </select>
       </label>
       <div className="ui icon input">

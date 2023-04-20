@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
+import ItemNew from "./ItemNew";
+import VendorItemNew from "./VendorItemNew";
 
 function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const [item, setItem] = useState(null);
     const { id } = useParams()
     const history = useHistory()
-    
     useEffect(() => {
         fetch(`http://127.0.0.1:5555/items/${id}`)
-            .then(r => r.json())
-            .then(data => {
-                console.log(data)
-                console.log(data[0])
-                setItem(data[0])})
-    }, [id])
-    
+        .then(r => r.json())
+        .then(data => {
+            // console.log(data)
+            // console.log(data[0])
+            setItem(data[0])})
+        }, [id])
+        
     if (!item) return <h2>Loading...</h2>
     
     const { name, description, image, category, price, vendors} = item
-    
+    // if (item.vendoritems.length > 0){
+    // console.log(item)
+    // console.log(item.vendoritems[0].vendor,"5555555", vendors)
+    // }
+    const allvendors = item.vendoritems.map((vi)=>vi.vendor)
+    // console.log(item.vendoritems, allvendors)
     function handleDeleteClick() {
         fetch(`http://127.0.0.1:5555/items/${id}`, {
           method: "DELETE"
@@ -32,7 +38,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
         onAddToCart(item)
     }
     
-    return (
+    return (<div>
         <section>
             <header className="detail-header">
                 <div className="container">
@@ -49,7 +55,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                 <h2>Vendors:</h2>
                 <div className="item-vendor-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {vendors && vendors.map((vendor) => (
+                        {allvendors && allvendors.map((vendor) => (
                             <div key={vendor.id}>
                                 <Link to={`/vendors/${vendor.id}`}>
                                     <h4>{vendor.vendor_name}</h4>
@@ -77,6 +83,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
             </div>
             ) : null}
         </section>
+        </div>
     );
 }
 

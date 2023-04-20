@@ -11,6 +11,7 @@ import VendorNew from "./VendorNew"
 import Cart from "./Cart"
 import Login from "./Login"
 import Users from "./Users"
+import VendorItemNew from "./VendorItemNew";
 
 function App() {
     const [currentUser, setCurrentUser] = useState("")
@@ -161,6 +162,7 @@ function App() {
                 </Route> : null }
                 <Route exact path="/vendors/:id">
                     <VendorDetail admin={admin} onVendorDelete={handleVendorDelete}/>
+                    <VendorItemNew></VendorItemNew>
                 </Route>
                 {admin ? 
                 <Route exact path="/users">

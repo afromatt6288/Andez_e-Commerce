@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
+import VendorItemNew from "./VendorItemNew";
 
 function VendorDetail({admin, onVendorDelete}) {
     const [vendor, setVendor] = useState(null);
@@ -15,9 +16,9 @@ function VendorDetail({admin, onVendorDelete}) {
     
     if (!vendor) return <h2>Loading...</h2>
     
-    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, vendoritems} = vendor
-    console.log(vendor_name, vendor.vendoritems, "s")
-    
+    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, vendoritems, items} = vendor
+    // console.log(vendor_name, items, "g",vendor.vendoritems[0].item, "s")
+    const allitems = vendor.vendoritems.map((vi)=>vi.item)
     function handleDeleteClick() {
         fetch(`http://127.0.0.1:5555/vendors/${id}`, {
           method: "DELETE"
@@ -26,7 +27,7 @@ function VendorDetail({admin, onVendorDelete}) {
         history.push(`/vendors`)       
     }
     
-    return (
+    return (<div>
         <section>
             <header className="vendor-detail-header">
                 <div className="container">
@@ -44,7 +45,7 @@ function VendorDetail({admin, onVendorDelete}) {
                 <h2>Items:</h2>
                 <div className="vendor-item-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {vendoritems && vendoritems.map((item) => (
+                        {allitems && allitems.map((item) => (
                             <div key={item.id}>
                                 <h4>{item.name}</h4>
                                 <Link to={`/items/${item.id}`}>
@@ -70,7 +71,9 @@ function VendorDetail({admin, onVendorDelete}) {
                 </button>
             </div>
             ) : null}
+
         </section>
+        </div>
     );
 }
 
