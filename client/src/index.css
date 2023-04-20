@@ -65,7 +65,7 @@
   min-height: 100%;
   height: 100vh;
   position: relative;
-  background-color: #2c6be9;
+  background-color: #a1852c;
   color: white;  
   transition: 3s;
 }
@@ -77,7 +77,7 @@
   min-height: 100%;
   height: 100vh;
   position: relative;
-  background-color: #8d98ac;
+  background-color: #6b0d74;
   color: white;
   transition: 3s;
 }
@@ -218,10 +218,34 @@ button {
 }
 
 .home {
+  display: inline-block;
+  border-radius: 15px;
+  font-size: 12px;
+  color: rgb(233, 231, 238);
+  /* border: 3px solid #7010ac; */
+  padding:5px;
+  margin:5px;
+  /* background-color: #7010ac79; */
+}
+
+.home-list {
   color: #f8f5f9;
   text-shadow: 1px 1px 1px #000000;
   -webkit-text-stroke: .3px #141414; /* for Safari/Chrome */
   /* text-stroke: .3px #480567; for other browsers */
+  background-color: #7010ac79;
+  border: 5px groove #6551c0; 
+  border-radius: 30px;  
+  padding: 20px; 
+  /* width: flex; */
+  overflow-y: hidden;
+  overflow-y: scroll;
+  height: 50%;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
+  /* overflow: auto; */
+  max-height: calc(70vh - 65px);
 }
 
 .img-thumb {
@@ -236,6 +260,17 @@ button {
   box-shadow: 0 0 6px 6px rgba(0, 140, 186, 0.5);
 }
 
+.items {
+  display: inline-block;
+  border-radius: 15px;
+  font-size: 12px;
+  color: rgb(233, 231, 238);
+  border: 3px solid #7010ac;
+  padding:5px;
+  margin:5px;
+  background-color: #7010ac79;
+}
+
 .item-item {
   margin: 1%;
 }
@@ -244,15 +279,11 @@ button {
   border: 5px groove #7010ac; 
   border-radius: 30px;  
   padding: 20px; 
-  /* width: flex; */
   overflow-y: hidden;
   overflow-y: scroll;
-  /* height: 5%; */
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
-  /* overflow: auto; */
-  max-height: calc(70vh - 65px);
+  max-height: calc(75vh - 50px);
+  margin:5px;
+  background-color: #7010ac79;
 }
 
 .item-vendor-list {
@@ -300,26 +331,6 @@ button {
 .login:active {
   color: #7010ac;
   border: 2px solid #7010ac;
-}
-
-.merch-links {
-  background-color: rgb(0, 4, 255);
-  color: white;
-  padding: auto;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.merch-links:hover {
-  background-color: #555;
-}
-
-.merch-links:active {
-  background-color: black;
-}
-
-.merch-links:visited {
-  background-color: #282a92;
 }
 
 .modal {
@@ -443,6 +454,52 @@ button[type="submit"]:hover {
   border: 1px solid firebrick;
 }
 
+.new-vendor-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-vendor-form 
+label {
+  display: block;
+  margin: 10px;
+  width: 300px;
+}
+
+.new-vendor-form 
+input[type="text"] {
+  width: 30%;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.new-vendor-form 
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: rgb(190, 13, 13);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 15%;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.new-vendor-form 
+button[type="submit"]:hover {
+  background-color: #0bbb11;
+}
+
 .please {
   /* float: right; */
   /* display: inline-block; */
@@ -478,45 +535,6 @@ button[type="submit"]:hover {
   display: flex
 }
 
-.species-detail-intro {
-  display: inline-block;
-  left: 0;
-  position: relative;
-  width: 100%;
-  height: 45%;
-  overflow-y: scroll;  
-  overflow-x: hidden;
-  max-height: 60vh;
-  color: rgb(250, 252, 252);
-  text-shadow: 1px 1px 1px #000000;
-  letter-spacing: 2px;
-}
-
-.species-detail-intro span {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.species-detail-intro label {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: calc(25% - 20px);
-  margin: 5px;
-  padding: 5px;
-  /* background-color: rgba(66, 18, 68, 0.5); */
-  background-color: #7010ac79;
-}
-
-.species-detail-intro p {
-  margin: 0;
-  font-weight: bold;
-}
-
 .user-signup {
   position: absolute;
   top: 100%;
@@ -541,6 +559,32 @@ button[type="submit"]:hover {
 .users h3{
   margin-bottom: -5px;
   margin-top: 10px;
+}
+
+.user-list {
+  border: 5px groove #7010ac; 
+  border-radius: 30px;  
+  padding: 20px; 
+  /* width: flex; */
+  overflow-y: hidden;
+  overflow-y: scroll;
+  /* height: 5%; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
+  /* overflow: auto; */
+  max-height: calc(75vh - 20px);
+}
+
+.vendors {
+  display: inline-block;
+  border-radius: 15px;
+  font-size: 12px;
+  color: rgb(233, 231, 238);
+  border: 3px solid #7010ac;
+  padding:5px;
+  margin:5px;
+  background-color: #7010ac79;
 }
 
 .vendor-detail-header {
@@ -588,7 +632,6 @@ button[type="submit"]:hover {
   letter-spacing: 2px;
 }
 
-
 .vendor-detail-intro h2{
   font-size: 3vw;
   text-align: center;
@@ -631,6 +674,7 @@ button[type="submit"]:hover {
 .vendor-item {
   margin: 1%;
   -webkit-text-stroke: .3px rgb(0, 0, 0);
+  width: 200px;
 }
 
 .vendor-item-list {
@@ -645,11 +689,12 @@ button[type="submit"]:hover {
   /* flex-wrap: wrap; */
   /* justify-content: space-between; */
   /* overflow: auto; */
-  /* max-height: calc(70vh - 65px); */
+  max-height: calc(70vh - 65px);
+  max-height: calc(75vh - 50px);
 }
 
 .vendor-img{  
-  position: absolute;
+  /* position: absolute;
   margin-top: 11%;
   object-fit: contain;
   width: 65%;
@@ -657,23 +702,19 @@ button[type="submit"]:hover {
   padding: 5px; 
   border: 1px solid #ddd; 
   border-radius: 10px;  
-  padding: 5px; 
+  padding: 5px;  */
   /* width: 150px;  */
 }
 
 .vendor-list {
-  border: 5px groove #6551c0; 
+  border: 5px groove #7010ac; 
   border-radius: 30px;  
   padding: 20px; 
-  /* width: flex; */
   overflow-y: hidden;
   overflow-y: scroll;
-  /* height: 5%; */
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
-  /* overflow: auto; */
-  max-height: calc(70vh - 65px);
+  max-height: calc(75vh - 50px);
+  margin:5px;
+  background-color: #7010ac79;
 }
 
 body {

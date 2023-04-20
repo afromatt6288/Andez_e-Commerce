@@ -1,5 +1,6 @@
 import React from "react";
 import UserCard from "./UserCard"
+import { Card } from "semantic-ui-react"
 
 function Users({users, onUserDelete}) {
 
@@ -10,11 +11,23 @@ function Users({users, onUserDelete}) {
     return (
         <section id="users">
             <h3 className="header">Users</h3>
-            {sortedUsers.map((user)=> (
-            <UserCard key={user.id} user={user} onUserDelete={onUserDelete}/>
-        ))}
+            <div className="user-list">
+                <Card.Group className="cards" itemsPerRow={6}>
+                    {sortedUsers.map((user)=> (
+                    <UserCard key={user.id} user={user} onUserDelete={onUserDelete}/>
+                    ))}
+                </Card.Group>
+            </div>
         </section>
     )
 }
 
 export default Users
+
+{/* <div className="item-list">
+<Card.Group className="cards" itemsPerRow={6}>
+    {displayedItems.map((item)=> (
+    <ItemItem key={item.id} item={item} />
+    ))}
+</Card.Group>
+</div> */}

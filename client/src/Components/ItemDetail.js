@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
 
-function ItemDetail({admin, onItemDelete}) {
+function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const [item, setItem] = useState(null);
     const { id } = useParams()
     const history = useHistory()
@@ -11,7 +11,8 @@ function ItemDetail({admin, onItemDelete}) {
         fetch(`http://127.0.0.1:5555/items/${id}`)
             .then(r => r.json())
             .then(data => {
-                console.group(data)
+                console.log(data)
+                console.log(data[0])
                 setItem(data[0])})
     }, [id])
     
@@ -26,6 +27,10 @@ function ItemDetail({admin, onItemDelete}) {
         onItemDelete(id)
         history.push(`/items`)       
     }
+
+    function handleAddToCart(){
+        onAddToCart(item)
+    }
     
     return (
         <section>
@@ -33,6 +38,7 @@ function ItemDetail({admin, onItemDelete}) {
                 <div className="container">
                     <span className="highlight">{name}</span>
                 </div>
+                <button onClick={handleAddToCart}>Add To Cart</button>
             </header>
             <div className="detail-intro">
                 <span>

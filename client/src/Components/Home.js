@@ -3,11 +3,11 @@ import React from "react";
 function Home({currentUser}) {
     if (currentUser) {
         return (
-            <section id="home" className="home">
+            <section id="home">
                 <h1 className="header" >
                     Welcome, {currentUser.username}, to Andez E-Commerce</h1>
 
-                <div>
+                <div className="home-list">
                     <h3>
                         Preston Hunter and Matthew Clark had a dream. What dream you might ask? Well, our dream was to be largest importer and seller of nuts in the world.
                         <br/>

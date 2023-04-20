@@ -6,6 +6,7 @@ function ItemItem({ item }) {
 
     return (
         <div className="item-item">
+            {/* console.log({id}) */}
             <Link to={`/items/${id}`}>
                 <img className="img-thumb" src={image} alt={name} />
             </Link>
