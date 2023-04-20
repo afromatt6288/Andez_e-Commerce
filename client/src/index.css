@@ -281,6 +281,15 @@ button {
   transition: 0.1s;
 }
 
+.login-button {
+  display: inline-flex;
+  width: 70px;
+  position: absolute;
+  top: 1070%;
+  right: -190%;
+  transform: translateY(-50%);
+}
+
 .login:hover,
 .login:active {
   color: #7010ac;
@@ -311,6 +320,16 @@ button {
   position: absolute;
   top: 15.5%;
   left: 91%;
+  transform: translate(-50%, -50%);
+  background-color: #d0c5d66e;
+  padding: 5px;
+  z-index: 9999;
+}
+
+.modal .profile {
+  position: absolute;
+  top: 430%;
+  left: 40%;
   transform: translate(-50%, -50%);
   background-color: #d0c5d66e;
   padding: 5px;
@@ -511,6 +530,11 @@ button[type="submit"]:hover {
   padding:5px;
   margin:5px;
   background-color: #7010ac79;
+}
+
+.users h3{
+  margin-bottom: -5px;
+  margin-top: 10px;
 }
 
 .vendor-detail-header {

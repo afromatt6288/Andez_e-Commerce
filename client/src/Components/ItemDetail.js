@@ -46,7 +46,7 @@ function ItemDetail({admin, onItemDelete}) {
                         {vendors && vendors.map((vendor) => (
                             <div key={vendor.id}>
                                 <Link to={`/vendors/${vendor.id}`}>
-                                    <h4>{vendor.name}</h4>
+                                    <h4>{vendor.vendor_name}</h4>
                                 </Link>
                             </div>
                         ))}

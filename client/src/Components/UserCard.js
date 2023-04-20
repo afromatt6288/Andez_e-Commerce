@@ -6,9 +6,28 @@ function UserCard({user, onUserDelete}) {
     const [funds, setFunds] = useState(0)
     const [newEmail, setNewEmail] = useState(`${email}`)
     const [newShippingAddress, setNewShippingAddress] = useState(`${shipping_address}`)
-    
+    const [creditCard, setCreditCard] = useState({
+        number: '',
+        expiration: '',
+        secret: ''
+    })
+    const [isCreditCardValid, setIsCreditCardValid] = useState(false)
+
+    function handleCreditCardChange(e) {
+        const {name, value} = e.target
+        setCreditCard(prevState => ({
+            ...prevState,
+            [name]: value
+        }))
+        setIsCreditCardValid(creditCard.number.length === 16 && creditCard.expiration.length > 0 && creditCard.secret.length === 3)
+    }
+
     function handleUpdate(e) {
         e.preventDefault()
+        if ((funds != 0) && (!isCreditCardValid)) {
+            alert("Please enter valid credit card information.")
+            return
+        }
         const formData = {
             email: newEmail,
             shipping_address: newShippingAddress,
@@ -47,10 +66,6 @@ function UserCard({user, onUserDelete}) {
             <h3>{username}</h3>
             <h3>$ {accountBalance} Nuts</h3>
             <form>
-                <label> Add Funds </label>
-                <br/>
-                <input type="number" onChange={e => setFunds(e.target.value)} value={`${funds}`}/>
-                <br/>
                 <label> Update Email</label> 
                 <br/>
                 <input type="text" onChange={e => setNewEmail(e.target.value)} value={newEmail}/>
@@ -59,9 +74,26 @@ function UserCard({user, onUserDelete}) {
                 <br/>
                 <input type="text" onChange={e => setNewShippingAddress(e.target.value)} value={newShippingAddress}/>
                 <br/>
-                <button type="submit" onClick={handleUpdate}>Submit Changes</button>
+                {isCreditCardValid ? (
+                    <>
+                    <label> Add Funds </label>
+                    <br/>
+                    <input type="number" onChange={e => setFunds(e.target.value)} value={`${funds}`}/>
+                    </>
+                ) : (
+                    <>
+                    <p>Please enter your credit card information to add funds.</p>
+                    </>
+                )}
+                <label> Credit Card Number </label>
+                <input type="number" name="number" onChange={handleCreditCardChange} value={creditCard.number}/>
+                <label> Exp Date </label> 
+                <input type="text" name="expiration" onChange={handleCreditCardChange} value={creditCard.expiration}/>
+                <label> Secret Key </label>
+                <input type="number" name="secret" onChange={handleCreditCardChange} value={creditCard.secret}/>
+                <button type="submit" onClick={handleUpdate}>Submit Changes</button>   
             </form>
-            <button onClick={handleUserDelete}>Delete</button>
+            <button onClick={handleUserDelete}>Delete Account</button>
         </div>
     )
 }

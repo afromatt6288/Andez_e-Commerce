@@ -79,9 +79,11 @@ Done! - Full CRUD actions for at least one resource.
 
     Update:
         Users account balance, email, and address can all be changed in Users Tab (admin only)
+        Users account balance, email, and address can all be changed in their Profile
 
     Delete:
         Users can be deleted through the Users Tab (admin only)
+        Users can be deleted in their Profile
         Items can be deleted in their Detail (admin only)
         Vendors can be deleted in their Detail (admin only)
 
@@ -95,7 +97,6 @@ Done! - Have at least three different client-side routes using React Router.
     Be sure to include a nav bar or other UI element that allows users to navigate between routes.
         NavBar has 3 routes for Users, and an additional 3 for Admin
         
-
 Done! - Connect the client and server using fetch().
     Many connections (for the CRUD above)
 
@@ -103,6 +104,9 @@ Done! - Implement Authorization
     - Password Hash is present. 
     - Invalid users are denied login, and receive a message saying they are not valid. 
     - Sections of the app are not accessible unless one is an authorized admin
+    - to add funds a User must enter a fake CC, which is checked for "validity"
+    - Users are denied accessing/increasing their funds without a valid cc
+    - users cannot spend to below $1 Nut
 
 In Progress... Have a clear readMe with:
     Done! - An Overview about what your project is about

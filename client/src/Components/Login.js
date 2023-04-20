@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom"
 import UserNew from "./UserNew"
-
-function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onAddUser}) {
+import UserCard from "./UserCard"
+// Log Out
+function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onAddUser, onUserDelete}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [isPasswordSecure, setIsPasswordSecure] = useState(true)
@@ -10,6 +11,16 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
     const [newUser, setNewUser] = useState(false)
     
     const history = useHistory()
+
+    const currentUserCard =
+    currentUser &&
+    users.find((user) => user.id === currentUser.id) && (
+      <UserCard
+        key={currentUser.id}
+        user={currentUser}
+        onUserDelete={onUserDelete}
+      />
+    );
  
     function handleSubmit(e) {
         e.preventDefault();
@@ -52,9 +63,10 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
         <div className="modal">
             <div className="modal_content">
                 {currentUser ? 
-                <div className="admin">
-                <h4>{currentUser.username}</h4>
-                <h4>$ {currentUser.account_balance} Nuts</h4>
+                <div className="profile">
+                  <section id="profile">
+                      {currentUserCard}
+                  </section>
             </div>
                 : newUser ? <UserNew onNewUser={handleNewUser} toggle={toggle} /> :
                 <form onSubmit={handleSubmit}>
@@ -68,7 +80,10 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
                     <button className="new-user-button" onClick={e=>setNewUser(!newUser)}>New User? Sign up here!</button> 
                 </form>}
                 {currentUser ? 
-                <button className="login-button" onClick={handleLogoutClick} >Log Out</button>
+                  <div className="logout-container">
+                    <button className="login-button" onClick={handleLogoutClick}>Log Out</button>
+                    <span className="logout-text">_</span>
+                  </div>
                 : null}
             </div>
         </div>
