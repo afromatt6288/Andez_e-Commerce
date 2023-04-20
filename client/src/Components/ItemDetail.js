@@ -37,19 +37,19 @@ function ItemDetail({admin, onItemDelete}) {
                     <label>Category: <p>{category}</p></label> 
                     <label>Price: <p>{price}</p></label>
                 </span>
-                <p>{description}</p>
+                <p>Description: {description}</p>
                 <h2>Vendors:</h2>
-                {/* <div className="item-vendor-list">
+                <div className="item-vendor-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {vendors.map((vendor)=> (
-                        <div>
-                            <Link to={`/vendors/${vendor.id}`}>
-                                <h4>{vendor.name}</h4>
-                            </Link>
-                        </div>
+                        {vendors && vendors.map((vendor) => (
+                            <div key={vendor.id}>
+                                <Link to={`/vendors/${vendor.id}`}>
+                                    <h4>{vendor.name}</h4>
+                                </Link>
+                            </div>
                         ))}
                     </Card.Group>  
-                </div>                */}
+                </div>               
             </div>
             <div className="detail-image-container">
                 <img className="detail-image" src={image} alt={name}/>

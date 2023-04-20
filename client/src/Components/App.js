@@ -5,24 +5,33 @@ import Home from "./Home";
 import ItemList from "./ItemList";
 import ItemDetail from "./ItemDetail";
 import ItemNew from "./ItemNew";
-import CharacterList from "./CharacterList"
-import CharacterDetail from "./CharacterDetail";
-import CharacterNew from "./CharacterNew"
+import VendorList from "./VendorList"
+import VendorDetail from "./VendorDetail";
+import VendorNew from "./VendorNew"
 import Login from "./Login"
 import Users from "./Users"
 
 function App() {
     const [currentUser, setCurrentUser] = useState("")
     const [seen, setSeen] = useState(false)
-    const admin = currentUser.admin
+    const [admin, setAdmin] = useState(false)
     
+  // Update the admin state variable when currentUser changes
+  useEffect(() => {
+    if (currentUser && currentUser.admin !== admin) {
+      setAdmin(currentUser.admin);
+    }
+  }, [currentUser]);
+
     // Gather user data with NEW Methods
     useEffect(() => {
-      fetch("http://localhost:5555/check_session")
+      fetch("http://127.0.0.1:5555/check_session")
       .then((response) => {
         if (response.ok) {
           response.json()
-      .then((currentUser) => setCurrentUser(currentUser));
+      .then((currentUser) => {
+        setCurrentUser(currentUser)
+    });
         }
       });
     }, []);
@@ -30,7 +39,7 @@ function App() {
     // gather my User Data
     const [users, setUsers] = useState([]) 
     useEffect(() => {
-        fetch("http://localhost:5555/users")
+        fetch("http://127.0.0.1:5555/users")
             .then(r => r.json())
             .then(data => {
                 setUsers(data)
@@ -40,7 +49,7 @@ function App() {
     // Gather my Item Data
     const [items, setItems] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5555/items")
+        fetch("http://127.0.0.1:5555/items")
             .then(r => r.json())
             .then(data => {
                 setItems(data)
@@ -50,32 +59,12 @@ function App() {
     // Gather my Vendor Data
     const [vendors, setVendors] = useState([]);    
     useEffect(() => {
-        fetch("http://localhost:5555/vendors")
+        fetch("http://127.0.0.1:5555/vendors")
             .then(r => r.json())
             .then(data => {
                 setVendors(data)     
             })
     }, [])
-
-    // Gather my Species Data
-    const [species, setSpecies] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:3001/species")
-            .then(r => r.json())
-            .then(data => {
-                setSpecies(data)     
-            })
-        }, [])
-    
-    // Gather my Vehicles Data
-    const [vehicles, setVehicles] = useState([]);
-    useEffect(() => {
-        fetch("http://localhost:3001/vehicles")
-            .then(r => r.json())
-            .then(data => {
-                setVehicles(data)     
-            })
-        }, [])
 
     // Handle User Add & Delete
     function handleAddUser(addUser) {
@@ -89,14 +78,25 @@ function App() {
     }
 
     // Handle Item Add & Delete
-    function handleFilmAdd(addFilm) {
-        const updatedFilms = [...items, addFilm]
-        setItems(updatedFilms);
+    function handleItemAdd(addItem) {
+        const updatedItems = [...items, addItem]
+        setItems(updatedItems);
     }
 
-    function handleFilmDelete(id) {
-        const updatedFilms = items.filter(film => film.id !== id)
-        setItems(updatedFilms)
+    function handleItemDelete(id) {
+        const updatedItems = items.filter(item => item.id !== id)
+        setItems(updatedItems)
+    }
+
+    // Handle Vendor Add & Delete
+    function handleVendorAdd(addVendor) {
+        const updatedVendors = [...vendors, addVendor]
+        setVendors(updatedVendors);
+    }
+
+    function handleVendorDelete(id) {
+        const updatedVendors = vendors.filter(vendor => vendor.id !== id)
+        setVendors(updatedVendors)
     }
 
     // Handle Login and registration Pop-up
@@ -120,24 +120,24 @@ function App() {
                     <Home currentUser={currentUser}/>
                 </Route>
                 <Route exact path="/items">
-                    <ItemList items={items}/>
+                    <ItemList items={items} vendors={vendors}/>
                 </Route>
                 {admin ? 
                 <Route exact path="/items/new">
-                    <ItemNew onFilmAdd={handleFilmAdd}/>
+                    <ItemNew key={items.id} onItemAdd={handleItemAdd}/>
                 </Route> : null }
                 <Route exact path="/items/:id">
-                    <ItemDetail admin={admin} onFilmDelete={handleFilmDelete}/>
+                    <ItemDetail admin={admin} onItemDelete={handleItemDelete}/>
                 </Route>
                 <Route exact path="/vendors">
-                    <CharacterList items={items} vendors={vendors} species={species} vehicles={vehicles}/>
+                    <VendorList items={items} vendors={vendors}/>
                 </Route>
                 {admin ? 
                 <Route exact path="/vendors/new">
-                    <CharacterNew key={vendors.id}/>
+                    <VendorNew key={vendors.id} onVendorAdd={handleVendorAdd}/>
                 </Route> : null }
                 <Route exact path="/vendors/:id">
-                    <CharacterDetail admin={admin}/>
+                    <VendorDetail admin={admin} onVendorDelete={handleVendorDelete}/>
                 </Route>
                 {admin ? 
                 <Route exact path="/users">

@@ -16,11 +16,11 @@ function ItemNew({onItemAdd}) {
                 name: name,
                 image: image,
                 description: description,
-                price: price,
+                price: parseInt(price),
                 category: category,
-                vendors: []
+                // vendors: {}
         }
-        fetch("http://localhost:5555/items", {
+        fetch("http://127.0.0.1:5555/items", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom"
-import NewUser from "./NewUser"
+import UserNew from "./UserNew"
 
 function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onAddUser}) {
     const [username, setUsername] = useState("")
@@ -13,7 +13,7 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
  
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("http://localhost:5555/login", {
+        fetch("http://127.0.0.1:5555/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -23,7 +23,8 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
           if (r.ok) {
             r.json().then((user) => {
               setCurrentUser(user)
-              console.log(`login.js line 26 ${user}`)
+              console.log("Login.js Line 26 - for logging in")
+              console.log(user)
             })
             history.push(`/`)
             toggle()
@@ -38,8 +39,9 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
         }
         
       function handleLogoutClick() {
-        console.log(`Login.js line 41 ${currentUser}`)
-        fetch("http://localhost:5555/logout", { method: "DELETE" }).then((r) => {
+        console.log("Login.js Line 42 - for logging out")
+        console.log(currentUser)
+        fetch("http://127.0.0.1:5555/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             setCurrentUser(null);
           }
@@ -54,7 +56,7 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
                 <h4>{currentUser.username}</h4>
                 <h4>$ {currentUser.account_balance} Nuts</h4>
             </div>
-                : newUser ? <NewUser onNewUser={handleNewUser} toggle={toggle}/> :
+                : newUser ? <UserNew onNewUser={handleNewUser} toggle={toggle} /> :
                 <form onSubmit={handleSubmit}>
                     <input type="text" id="username" placeholder="User Name" value={username} onChange={e => setUsername(e.target.value) }/>
                     <input type={isPasswordSecure? "password" : "text"} id="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>

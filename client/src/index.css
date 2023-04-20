@@ -179,6 +179,21 @@ button {
   margin: 1%;
 }
 
+.vendor-item-list {
+  border: 5px groove #7010ac; 
+  border-radius: 30px;  
+  padding: 20px; 
+  /* width: flex; */
+  /* overflow-y: hidden; */
+  /* overflow-y: scroll; */
+  /* height: 5%; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
+  /* overflow: auto; */
+  /* max-height: calc(70vh - 65px); */
+}
+
 .vendor-img{  
   position: absolute;
   margin-top: 11%;

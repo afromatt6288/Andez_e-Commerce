@@ -3,10 +3,10 @@ import ItemItem from "./ItemItem";
 import ItemSearch from "./ItemSearch"
 import { Card } from "semantic-ui-react"
 
-function ItemList({items}) {
+function ItemList({items, vendors}) {
     const [search, setSearch] = useState("")
     const [sortBy, setSortBy] = useState("Alphabetical")
-    const [filterBy, setFilterBy] = useState("All")
+    const [filterBy, setFilterBy] = useState("Featured Items")
 
     // handle my Item sort
     const sortedItems = [...items].sort((item1, item2) => {

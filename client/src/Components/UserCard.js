@@ -19,7 +19,7 @@ function UserCard({user, onUserDelete}) {
             setAccountBalance(accountBalance);
             alert("Not Enough Nuts");
         } else {
-            fetch(`http://localhost:5555/users/${id}`, {
+            fetch(`http://127.0.0.1:5555/users/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -36,7 +36,7 @@ function UserCard({user, onUserDelete}) {
     }
 
     function handleUserDelete() {
-        fetch(`http://localhost:5555/users/${id}`, {
+        fetch(`http://127.0.0.1:5555/users/${id}`, {
           method: "DELETE"
         })        
         onUserDelete(id)

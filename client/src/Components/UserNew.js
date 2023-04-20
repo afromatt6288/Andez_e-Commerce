@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function NewUser({onNewUser, toggle, setUser}) {
+function UserNew({onNewUser, toggle, setUser}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -18,7 +18,8 @@ function NewUser({onNewUser, toggle, setUser}) {
                 password_confirmation: passwordConfirmation,
                 email: email,
                 shipping_address: shippingAddress,
-                account_balance: 5
+                account_balance: 5,
+                admin: false
         }
         fetch("http://localhost:5555/signup", {
             method: "POST",
@@ -29,7 +30,7 @@ function NewUser({onNewUser, toggle, setUser}) {
         })
             .then(r => r.json())
             .then(user => {
-                setUser(user)
+                // setUser(user)
                 onNewUser(user)
                 history.push(`/`)
             })
@@ -87,4 +88,4 @@ function NewUser({onNewUser, toggle, setUser}) {
     )
 }
 
-export default NewUser
+export default UserNew
