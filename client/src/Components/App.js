@@ -120,6 +120,10 @@ function App() {
         setVendors(updatedVendors)
     }
 
+    function handleAddItemVendor(iv){
+        console.log("")
+    }
+
     // Handle Login and registration Pop-up
     function togglePop () {
         setSeen(!seen);
@@ -162,7 +166,7 @@ function App() {
                 </Route> : null }
                 <Route exact path="/vendors/:id">
                     <VendorDetail admin={admin} onVendorDelete={handleVendorDelete}/>
-                    <VendorItemNew></VendorItemNew>
+                    <VendorItemNew onItemAdd={handleItemAdd}></VendorItemNew>
                 </Route>
                 {admin ? 
                 <Route exact path="/users">

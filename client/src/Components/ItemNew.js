@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function ItemNew({onItemAdd, isVendor}) {
-    console.log(isVendor)
+function ItemNew({onItemAdd}) {
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
@@ -21,7 +20,7 @@ function ItemNew({onItemAdd, isVendor}) {
                 category: category,
                 // vendors: {}
         }
-        fetch("http://127.0.0.1:5555/items", {
+        fetch("/items", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
