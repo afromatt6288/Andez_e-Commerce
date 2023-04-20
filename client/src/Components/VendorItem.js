@@ -5,13 +5,15 @@ function VendorItem({ vendor }) {
     const { id, vendor_name, vendor_address, vendor_email} = vendor
 
     return (
-        <div className="vendor-item">
-            <Link to={`/vendors/${id}`}>
-                <p>{vendor_name}</p>
-            </Link>
-            <p>{vendor_email}</p>
-            <p>{vendor_address}</p>
-        </div>
+        <section id="vendors">
+            <div className="vendor-item">
+                <Link to={`/vendors/${id}`}>
+                    <p>{vendor_name}</p>
+                </Link>
+                <p>{vendor_email}</p>
+                <p>{vendor_address}</p>
+            </div>
+        </section>
     );
 }
 

@@ -86,10 +86,11 @@ button {
   cursor: pointer
 }
 
-/* .cards {
-  justify-content: left;
-  margin: 30px;
-} */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
 
 .detail-banner{
@@ -268,11 +269,18 @@ button {
   border: 3px solid #7010ac;
   padding:5px;
   margin:5px;
-  background-color: #7010ac79;
+  /* background-color: #7010ac79; */
 }
 
 .item-item {
+  border: 2px solid #7010ac;
+  border-radius: 10px;
+  padding: 5px;
+  /* margin-bottom: 40px; */
   margin: 1%;
+  width: 170px;
+  height: 250px;
+  background-color: #7010ac79;
 }
 
 .item-list {
@@ -283,7 +291,7 @@ button {
   overflow-y: scroll;
   max-height: calc(75vh - 50px);
   margin:5px;
-  background-color: #7010ac79;
+  /* background-color: #7010ac79; */
 }
 
 .item-vendor-list {
@@ -551,8 +559,9 @@ button[type="submit"]:hover {
   color: rgb(233, 231, 238);
   border: 3px solid #7010ac;
   padding:5px;
-  margin:5px;
+  margin:15px;
   background-color: #7010ac79;
+  width: 175px;
 }
 
 .users h3{
@@ -575,7 +584,7 @@ button[type="submit"]:hover {
   max-height: calc(75vh - 20px);
 }
 
-.vendors {
+/* .vendors {
   display: inline-block;
   border-radius: 15px;
   font-size: 12px;
@@ -584,7 +593,7 @@ button[type="submit"]:hover {
   padding:5px;
   margin:5px;
   background-color: #7010ac79;
-}
+} */
 
 .vendor-detail-header {
   display: inline-block;
@@ -671,8 +680,16 @@ button[type="submit"]:hover {
 }
 
 .vendor-item {
-  margin: 1%;
+  border: 2px solid #7010ac;
+  border-radius: 10px;
+  padding: 20px;
+  /* margin-bottom: 40px; */
+  margin-left: 20px;
+  margin-right: 20px;
+  margin: 4%;
   width: 200px;
+  height: 150px;
+  background-color: #7010ac79;
 }
 
 .vendor-item-list {
@@ -712,7 +729,7 @@ button[type="submit"]:hover {
   overflow-y: scroll;
   max-height: calc(75vh - 50px);
   margin:5px;
-  background-color: #7010ac79;
+  /* background-color: #7010ac79; */
 }
 
 body {
