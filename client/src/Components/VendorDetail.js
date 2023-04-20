@@ -15,7 +15,8 @@ function VendorDetail({admin, onVendorDelete}) {
     
     if (!vendor) return <h2>Loading...</h2>
     
-    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, items} = vendor
+    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, vendoritems} = vendor
+    console.log(vendor_name, vendor.vendoritems, "s")
     
     function handleDeleteClick() {
         fetch(`http://127.0.0.1:5555/vendors/${id}`, {
@@ -43,7 +44,7 @@ function VendorDetail({admin, onVendorDelete}) {
                 <h2>Items:</h2>
                 <div className="vendor-item-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {items && items.map((item) => (
+                        {vendoritems && vendoritems.map((item) => (
                             <div key={item.id}>
                                 <h4>{item.name}</h4>
                                 <Link to={`/items/${item.id}`}>

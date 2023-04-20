@@ -34,8 +34,8 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
           if (r.ok) {
             r.json().then((user) => {
               setCurrentUser(user)
-              console.log("Login.js Line 26 - for logging in")
-              console.log(user)
+              // console.log("Login.js Line 26 - for logging in")
+              // console.log(user)
             })
             history.push(`/`)
             toggle()
