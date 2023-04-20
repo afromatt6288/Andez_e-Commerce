@@ -19,12 +19,12 @@ function App() {
     
   // Update the admin state variable when currentUser changes
   useEffect(() => {
-    if (currentUser && currentUser.admin !== admin) {
+    if (currentUser) {
       setAdmin(currentUser.admin);
     }
   }, [currentUser]);
 
-    // Gather user data with NEW Methods
+    // Gather user data to check if logged in
     useEffect(() => {
       fetch("http://127.0.0.1:5555/check_session")
       .then((response) => {
@@ -88,6 +88,25 @@ function App() {
         const updatedItems = items.filter(item => item.id !== id)
         setItems(updatedItems)
     }
+    // Handle Shopping Cart Add & Remove
+    const [cart, setCart] = useState([])
+    const [CartCounter, setCartCounter] = useState(0);
+
+    useEffect(() => {
+        let cartCount = 0;
+        cart.forEach((item) => {
+          cartCount += 1;
+        });
+        setCartCounter(cartCount);
+    }, [cart, CartCounter])
+
+    function handleAddToCart(item){
+        console.log(`cart add ${item.id}`)
+        // const itemToAdd = items.filter(item => item.id === id)
+        const addToCart = [...cart, item]
+        setCart(addToCart)
+        console.log(cart)
+    }
 
     // Handle Vendor Add & Delete
     function handleVendorAdd(addVendor) {
@@ -115,13 +134,13 @@ function App() {
                 {seen ? <Login toggle={togglePop} currentUser={currentUser} setCurrentUser={setCurrentUser} admin={admin} users={users} onAddUser={handleAddUser}/> : null}
             </div>
             </header>
-            {currentUser ? <NavBar admin={admin} /> : seen ? null : <h2 className="please">Please Log In</h2>}
+            {currentUser ? <NavBar admin={admin} CartCounter={CartCounter}/> : seen ? null : <h2 className="please">Please Log In</h2>}
             {currentUser ? <Switch>
                 <Route exact path="/">
                     <Home currentUser={currentUser}/>
                 </Route>
-                <Route exact path="/cart">
-                    <Cart currentUser={currentUser} items={items} vendors={vendors}/>
+                <Route exact path="/shoppingcart">
+                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors}/>
                 </Route>
                 <Route exact path="/items">
                     <ItemList items={items} vendors={vendors}/>
@@ -131,7 +150,7 @@ function App() {
                     <ItemNew key={items.id} onItemAdd={handleItemAdd}/>
                 </Route> : null }
                 <Route exact path="/items/:id">
-                    <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete}/>
+                    <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
                 </Route>
                 <Route exact path="/vendors">
                     <VendorList items={items} vendors={vendors}/>
