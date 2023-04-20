@@ -7,7 +7,8 @@ import json
 from sqlalchemy.exc import IntegrityError
 from config import app,db,api
 from models import User, Item, Transaction, Vendor, VendorItem
-
+from flask_cors import CORS
+CORS(app)
     ###########################################
     ##                Home API               ##
     ###########################################
@@ -60,7 +61,10 @@ api.add_resource(Signup, '/signup', endpoint='signup')
 
 class CheckSession(Resource):
     def get(self):
+        print("app.py Line 64 - CheckSession")
+        print(session)
         if session.get('user_id'):
+            print(session['user_id'])
             user = User.query.filter(User.id == session.get('user_id')).first()
             return user.to_dict(), 200 
         return {'message': '401 Unauthorized'}, 401 
@@ -80,10 +84,10 @@ api.add_resource(Login, '/login', endpoint='login')
 
 class Logout(Resource):
     def delete(self):               ## Different from Deleting a User. 
-        if session.get('user_id'):
-            session['user_id'] = None
-            return {'message': '204: No Content'}, 204
-        return {'error': '401 Unauthorized'}, 401
+        # if session.get('user_id'):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
+        # return {'error': '401 Unauthorized'}, 401
 api.add_resource(Logout, '/logout')
 
     ###########################################
@@ -184,6 +188,8 @@ class Items(Resource):
             new_item = Item(
                 name=data['name'], 
                 price=int(data['price']),
+                category=data['category'],
+                image=data['image'],
                 description=data['description'], 
                 )
             db.session.add(new_item)
@@ -322,9 +328,9 @@ class Vendors(Resource):
         data=request.get_json()
         try:                                            
             new_vendor = Vendor(
-                vendor_name=data['name'],
-                vendor_email=data['email'],
-                vendor_address=data['address'],
+                vendor_name=data['vendor_name'],
+                vendor_email=data['vendor_email'],
+                vendor_address=data['vendor_address'],
                 vendor_account_balance=int(data['vendor_account_balance']),
                 )
             db.session.add(new_vendor)

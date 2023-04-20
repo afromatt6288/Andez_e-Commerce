@@ -6,60 +6,37 @@ import Home from "./Home";
 import ItemList from "./ItemList";
 import ItemDetail from "./ItemDetail";
 import ItemNew from "./ItemNew";
-import CharacterList from "./CharacterList"
-// import CharacterDetail from "./CharacterDetail";
-import CharacterNew from "./CharacterNew"
+import VendorList from "./VendorList"
+import VendorDetail from "./VendorDetail";
+import VendorNew from "./VendorNew"
+import Cart from "../Cart"
 import Login from "./Login"
 import Users from "./Users"
 
-function App({setItems, items, vendors, setVendors, users, setUsers} ) {
-    const [currentUser, setCurrentUser] = useState("")
-    const [seen, setSeen] = useState(false)
-    const admin = currentUser.admin
-    
-    // Handle User Add & Delete
-    function handleAddUser(addUser) {
-        const updatedUsers = [...users, addUser]
-        setUsers(updatedUsers);
-    }
+function App({seen, setSeen, admin, setAdmin, setItems, items, vendors, setVendors, users, setUsers, handleAddUser, handleUserDelete, togglePop, currentUser, setCurrentUser} ) {
+    // if(admin == null){
+    //     return <div>loading...</div>
+    // }
 
-    function handleUserDelete(id) {
-        const updatedUsers = users.filter(user => user.id !== id)
-        setUsers(updatedUsers)
-    }
+    // console.log("seen", seen, "setseen", setSeen, "admin", admin, "setadmin", setAdmin,"setitems", setItems,"items", items,
+    // "vendors", vendors,"setvend", setVendors,"users", users,"setusers", setUsers, "handleadduser", handleAddUser, "handleuserdelete", handleUserDelete, 
+    // "togglepop", togglePop, "currentuser", currentUser,"setcurrentuser", setCurrentUser)
 
-    // Handle Item Add & Delete
-    function handleFilmAdd(addFilm) {
-        const updatedFilms = [...items, addFilm]
-        setItems(updatedFilms);
-    }
-
-    function handleFilmDelete(id) {
-        const updatedFilms = items.filter(film => film.id !== id)
-        setItems(updatedFilms)
-    }
-
-    // Handle Login and registration Pop-up
-    function togglePop () {
-        setSeen(!seen);
-    };
-
-    // tempItems = [4,5,6]
     return (
         <div className={currentUser ? "background-image-login" : "background-image-logout"}>
             <header className="app-header"> 
             <h1>Andez E-Commerce Emporium</h1>
             <h5>Formerly Andez Nuts</h5>
             <div>
-                <button className="login" onClick={togglePop} >{currentUser ? "Profile" : "Log In"}</button>
-                {seen ? <Login toggle={togglePop} currentUser={currentUser} setCurrentUser={setCurrentUser} admin={admin} users={users} onAddUser={handleAddUser}/> : null}
+                <button className="login" onClick={()=>{togglePop()}} >{currentUser ? "Profile" : "Log In"}</button>
+                {seen ? <Login currentUser={currentUser} setCurrentUser={setCurrentUser} admin={admin} users={users} onAddUser={handleAddUser}/> : null}
             </div>
             </header>
             {currentUser ? <NavBar admin={admin} /> : seen ? null : <h2 className="please">Please Log In</h2>}
             {currentUser ? 
             <div>
                 <Link href="/">
-                    {/* <Home currentUser={currentUser}/> */}
+                    Home{/* <Home currentUser={currentUser}/> */}
                 </Link>
                 <Link href="/items">
                     {/* <ItemList items={items}/> */}
@@ -84,9 +61,12 @@ function App({setItems, items, vendors, setVendors, users, setUsers} ) {
                 <Link href="/users">
                     {/* <Users users={users} onUserDelete={handleUserDelete}/> */}
                 </Link> : null }
-                {/* <Route path="*">
+                <Link href="/cart">
+                    {/* <Cart currentUser={currentUser} items={items} vendors={vendors}/> */}
+                </Link>
+                {/* <Link href="*">
                     <h1>404 not found</h1>
-                </Route> */}
+                </Link> */}
             </div> : null
             }
         </div>

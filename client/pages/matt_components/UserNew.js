@@ -2,7 +2,7 @@ import React, { useState } from "react"
 // import { useHistory } from "react-router-dom";
 import { useRouter } from 'next/router'
 
-function NewUser({onNewUser, toggle, setUser}) {
+function UserNew({onNewUser, toggle, setUser}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -88,4 +88,4 @@ function NewUser({onNewUser, toggle, setUser}) {
     )
 }
 
-export default NewUser
+export default UserNew

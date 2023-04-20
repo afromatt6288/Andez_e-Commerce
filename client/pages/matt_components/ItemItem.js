@@ -1,19 +1,23 @@
 import React from "react";
 import Link from 'next/link';
 
-function ItemItem({ film }) {
-    const { id, title, poster, release_date, genres} = film
-    const [genre1, genre2] = genres
+function ItemItem({ item }) {
+    if (item == null){
+        return <div>loading</div>
+    }
+
+    const { id, name, image, price, category} = item
 
     return (
-        <div className="film-item">
-            <Link href={`/films/${id}`}>
-                <img className="img-thumb" src={poster} alt={title} />
+        <div className="item-item">
+            <Link href={`/items/${id}`} as = {`items/${id}`}>
+                <img className="img-thumb" src={image} alt={name} />
             </Link>
-            <p>{genre1}/{genre2}</p>
-            <p>{release_date}</p>
+            <p>{name}</p>
+            <p>{category}</p>
+            <p>${price} Nuts</p>
         </div>
-    );
+        )
 }
 
 export default ItemItem;

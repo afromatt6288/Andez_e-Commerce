@@ -24,15 +24,15 @@ with app.app_context():
 ##########################################################
 
     print("Creating Classname(User) data...")
-    new_user_1 = User(username="Admin", email="Admin@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_1 = User(username="Admin", email="Admin@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5, admin=True)
     new_user_1.password_hash = "Admin"
-    new_user_2 = User(username="Matthew", email="Matthew@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_2 = User(username="Matthew", email="Matthew@flatironschool.com", shipping_address="2228 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_2.password_hash = "Matthew" 
-    new_user_3 = User(username="Preston", email="Preston@flatironschool.com", shipping_address="2282 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_3 = User(username="Preston", email="Preston@flatironschool.com", shipping_address="2282 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_3.password_hash = "Preston"
-    new_user_4 = User(username="Dylan", email="Dylan@flatironschool.com", shipping_address="2822 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_4 = User(username="Dylan", email="Dylan@flatironschool.com", shipping_address="2822 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_4.password_hash = "Dylan"
-    new_user_5 = User(username="Sarah", email="Sarah@flatironschool.com", shipping_address="8222 Blake St. Denver, CO 80205", account_balance=5)
+    new_user_5 = User(username="Sarah", email="Sarah@flatironschool.com", shipping_address="8222 Blake St. Denver, CO 80205", account_balance=5, admin=False)
     new_user_5.password_hash = "Sarah"
     users = [new_user_1,new_user_2,new_user_3,new_user_4,new_user_5]
     usernames = ['Admin', 'Matthew', 'Preston', 'Dylan', 'Sarah']
@@ -42,7 +42,7 @@ with app.app_context():
             username = fake.first_name()
         usernames.append(username)
         password = username
-        new_user = User(username=username, email=fake.email(), shipping_address=fake.address(), account_balance=5)
+        new_user = User(username=username, email=fake.email(), shipping_address=fake.address(), account_balance=5, admin=False)
         new_user.password_hash = password
         users.append(new_user)
     print('Adding User objects...')
@@ -78,9 +78,9 @@ with app.app_context():
 
     print("Creating Classname(Item) data...")
     item_1 = Item(
-        name="Andez Nuts",
-        price=5,
-        category="Special",
+        name="Andez Nuts (Original Flavor)",
+        price=4,
+        category="Featured Items",
         image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
         description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
     )
@@ -95,7 +95,7 @@ with app.app_context():
     nutflournames = ["coconut flour", "peanut flour", "almond flour", "cashew flour", "hazelnut flour", "macadamia nut flour", "pecan flour", "pine nut flour", "pistachio flour", "walnut flour"]
     categories = [
         "Tree nuts", "Peanuts", "Seeds", "Coconut", "Nut Butters", 
-        "Nut Oils", "Nut Milk", "Nut Flours"
+        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items", "Other"
         ]
     descriptions = [
         "Tree nuts: This category includes nuts that grow on trees, such as almonds, cashews, hazelnuts, macadamia nuts, pecans, pine nuts, pistachios, and walnuts.", 
@@ -105,7 +105,9 @@ with app.app_context():
         "Nut Butters: Nut butters, such as peanut butter, almond butter, and cashew butter, are made from ground nuts and are often used as spreads or in cooking and baking.",
         "Nut Oils: Some types of nuts, such as peanuts and walnuts, can be used to make oil that is used in cooking and baking.",
         "Nut Milk: Nut milk, such as almond milk and cashew milk, is made by blending nuts with water and straining out the pulp. Nut milk is often used as a dairy-free alternative to cow's milk.",
-        "Nut Flours: Nut flours, such as almond flour and hazelnut flour, are made by grinding nuts into a fine powder. Nut flours are often used in gluten-free baking."
+        "Nut Flours: Nut flours, such as almond flour and hazelnut flour, are made by grinding nuts into a fine powder. Nut flours are often used in gluten-free baking.",
+        "Featured Items: Our Featured Items are something special. Either it has been with us a long time and was purposely chosen... or the seed file randomly selected it. In either case... it is still special.",
+        f"{fake.sentence()}"
     ]
     for i in range(99):
         category = rc(categories)
@@ -126,6 +128,10 @@ with app.app_context():
             names = nutmilknames
         elif category == "Nut Flours":
             names = nutflournames
+        elif category == "Featured Items":
+            names = ["Special Nuts"]
+        else:
+            names = ["not_a_nut"]
 
         name = rc(names)
         description = descriptions[index]

@@ -3,45 +3,42 @@ import ItemItem from "./ItemItem";
 import ItemSearch from "./ItemSearch"
 import { Card } from "semantic-ui-react"
 
-function ItemList({items, setItems}) {
-    console.log("helpmeplz", items)
-    let films = [...items]
+//, search, setSearch, sortBy, setSortBy, filter, setFilterBy
+function ItemList({items, vendors}) {
     const [search, setSearch] = useState("")
     const [sortBy, setSortBy] = useState("Alphabetical")
-    const [filterBy, setFilterBy] = useState("All")
-    // const tempFilms = [12,34]
-    // handle my Film sort
-    const sortedFilms = [...films].sort((film1, film2) => {
+    const [filterBy, setFilterBy] = useState("Featured Items")
+
+    // handle my Item sort
+    const sortedItems = [...items].sort((item1, item2) => {
         if (sortBy === "Alphabetical") {
-            return film1.name.localeCompare(film2.title)
-        } else if (sortBy === "Date") {
-            const priceA = (film1.price);
-            const priceB = e(film2.price);
-            return priceA - priceB;
+            return item1.name.localeCompare(item2.name)
+        } else if (sortBy === "Price") {
+            return item1.price - item2.price;
         }
         return console.log('error on sort')
     })
 
-    // handle my Genre filter    
-    const genres = films.map((film)=> film.genres)
-    const allGenres = genres.flat(1)
-    const uniqueGenres = [...new Set(allGenres)]
-    const filteredFilms = sortedFilms.filter((film)=> filterBy === "All" ? sortedFilms : film.genres[0] === filterBy || film.genres[1] === filterBy )
+    // handle my Category filter    
+    const categories = items.map((item)=> item.category)
+    const allCategories = categories.flat(1)
+    const uniqueCategories = [...new Set(allCategories)]
+    const filteredItems = sortedItems.filter((item)=> filterBy === "All" ? sortedItems : item.category === filterBy)
 
     // this is how I am handling the ItemSearch function
-    const displayedFilms = filteredFilms.filter(film => film.name.toLowerCase().includes(search.toLowerCase()))
+    const displayedItems = filteredItems.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
         
     return (
-        <section id="films">
-            <h2 className="header">Ghibli Films</h2>
+        <section id="items">
+            <h2 className="header">Andez Items</h2>
             <div className="search-bar">
-                <ItemSearch search={search} onSearchChange={setSearch} sortBy={sortBy} onSortChange={setSortBy} filterBy={filterBy} onHandleFilter={setFilterBy} genres={uniqueGenres}/>
+                <ItemSearch search={search} onSearchChange={setSearch} sortBy={sortBy} onSortChange={setSortBy} filterBy={filterBy} onHandleFilter={setFilterBy} categories={uniqueCategories}/>
             </div>
             <div>
-            <div className="film-list">
+            <div className="item-list">
                 <Card.Group className="cards" itemsPerRow={6}>
-                    {displayedFilms.map((film)=> (
-                    <ItemItem key={film.id} film={film} />
+                    {displayedItems.map((item)=> (
+                    <ItemItem key={item.id} item={item} />
                     ))}
                 </Card.Group>
             </div>

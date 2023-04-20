@@ -1,6 +1,6 @@
 import React from "react";
 
-function ItemSearch({search, onSearchChange, sortBy, onSortChange, onHandleFilter, filterBy, genres}) {
+function ItemSearch({search, onSearchChange, sortBy, onSortChange, onHandleFilter, filterBy, categories}) {
   
   function handleSortChange(e){
     onSortChange(e.target.value)
@@ -23,18 +23,18 @@ function ItemSearch({search, onSearchChange, sortBy, onSortChange, onHandleFilte
         Alphabetical
         <input
           type="radio"
-          value="Date"
+          value="Price"
           name="sort"
-          checked={sortBy === "Date"}
+          checked={sortBy === "Price"}
           onChange={handleSortChange}
         />
-        Date
+        Price
       </label>
       <label className="filter">
-        <strong>Genre Filter:</strong>
+        <strong>Category Filter:</strong>
         <select onChange={handleFilter} value={filterBy}>
           <option value="All">All</option>
-          {genres.map((genre)=> <option value={genre}>{genre}</option>)}
+          {categories.map((category)=> <option value={category}>{category}</option>)}
         </select>
       </label>
       <div className="ui icon input">

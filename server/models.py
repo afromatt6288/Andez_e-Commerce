@@ -16,6 +16,7 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, nullable=False)
     shipping_address = db.Column(db.String, nullable=False)
     account_balance = db.Column(db.Integer, nullable=False)
+    admin = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -117,7 +118,7 @@ class Item(db.Model, SerializerMixin):
         #     "Musical Instruments", "Grocery & Gourmet Food"]
         categories = [
         "Tree nuts", "Peanuts", "Seeds", "Coconut", "Nut Butters", 
-        "Nut Oils", "Nut Milk", "Nut Flours", "Special"
+        "Nut Oils", "Nut Milk", "Nut Flours", "Featured Items", "Other"
         ]
         if not category:
             raise ValueError("Item must have a Category")
@@ -215,11 +216,12 @@ class Vendor(db.Model, SerializerMixin):
             raise ValueError("Vendor failed simple Vendor Email validation")
         return vendor_email
 
-    @validates('store_address')
-    def validate_store_address(self, key, store_address):
-        if not store_address:
-            raise ValueError("Vendor must have a Store Address")
-        
+    @validates('vendor_address')
+    def validate_vendor_address(self, key, vendor_address):
+        if not vendor_address:
+            raise ValueError("Vendor must have a vendor Address")
+        return vendor_address
+    
     @validates('vendor_account_balance')
     def validate_vendor_account_balance(self, key, vendor_account_balance):
         if not vendor_account_balance:
@@ -264,3 +266,6 @@ class VendorItem(db.Model, SerializerMixin):
         elif int(item_id) not in ids:
             raise ValueError('VendorItem Item must exist.')
         return item_id
+
+    def __repr__(self):
+        return f'VendorItem ID: {self.id}, Vendor Name: {self.vendor.vendor_name}, Item: {self.item.name}'
