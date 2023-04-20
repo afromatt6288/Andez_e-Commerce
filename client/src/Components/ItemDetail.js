@@ -9,16 +9,17 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
     
     useEffect(() => {
         fetch(`/items/${id}`)
-            .then(r => r.json())
-            .then(data => {
-                console.log(data)
-                console.log(data[0])
-                setItem(data[0])})
-    }, [id])
-    
-    if (!item) return <h2>Loading...</h2>
-    
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
+            console.log(data[0])
+            setItem(data[0])})
+        }, [id])
+        
+        if (!item) return <h2>Loading...</h2>
+        
     const { name, description, image, category, price, vendors} = item
+    const allvendors = item.vendoritems.map((vi)=>vi.vendor)
     
     function handleDeleteClick() {
         fetch(`/items/${id}`, {
@@ -38,18 +39,18 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                 <div className="container">
                     <span className="highlight">{name}</span>
                 </div>
-                <button onClick={handleAddToCart}>Add To Cart</button>
             </header>
             <div className="detail-intro">
                 <span>
-                    <label>Category: <span>{category}</span></label> 
+                    <label>Category: <span>{category}</span></label>
+                    <button type="submit" onClick={handleAddToCart}>Add To Cart</button> 
                     <label>Price: <span>{price}</span></label>
                 </span>
                 <p>Description: {description}</p>
                 <h2>Vendors:</h2>
                 <div className="item-vendor-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {vendors && vendors.map((vendor) => (
+                        {allvendors && allvendors.map((vendor) => (
                             <div key={vendor.id}>
                                 <Link to={`/vendors/${vendor.id}`}>
                                     <h4>{vendor.vendor_name}</h4>

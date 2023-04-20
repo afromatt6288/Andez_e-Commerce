@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory  } from "react-router-dom";
 import NavBar from "./NavBar"
 import Home from "./Home";
 import ItemList from "./ItemList";
@@ -16,6 +16,8 @@ function App() {
     const [currentUser, setCurrentUser] = useState("")
     const [seen, setSeen] = useState(false)
     const [admin, setAdmin] = useState(false)
+    
+    const history = useHistory();
         
     // Gather user data to check if logged in
     useEffect(() => {
@@ -88,9 +90,11 @@ function App() {
         const updatedItems = items.filter(item => item.id !== id)
         setItems(updatedItems)
     }
-    // Handle Shopping Cart Add & Remove
+    // Handle Shopping Cart Add, Clear, and Purchase
     const [cart, setCart] = useState([])
     const [CartCounter, setCartCounter] = useState(0);
+    const [totalCost, setTotalCost] = useState(0)
+    const [accountBalance, setAccountBalance] = useState(`${currentUser.account_balance}`);
 
     useEffect(() => {
         let cartCount = 0;
@@ -100,6 +104,14 @@ function App() {
         setCartCounter(cartCount);
     }, [cart, CartCounter])
 
+    useEffect(() => {
+        let totalCost = 0;
+        cart.forEach((item) => {
+          totalCost += item.price;
+        });
+        setTotalCost(totalCost);
+    }, [cart, totalCost])
+
     function handleAddToCart(item){
         console.log(cart)
         console.log(`cart add ${item.id}`)
@@ -108,13 +120,69 @@ function App() {
         console.log(cart)
     }
 
-    function handleRemoveFromCart(id){
+    function handleClearCart(){
         console.log(cart)
-        console.log(`cart remove ${id}`)
-        const removeFromCart = cart.filter(item => item.id !== id)
-        setCart(removeFromCart)
+        console.log(`Cart Cleared`)
+        setCart([])
         console.log(cart)
     }
+
+    function handleCheckOut(){
+        setAccountBalance(currentUser.account_balance)
+        console.log(accountBalance)
+        console.log(totalCost)
+        const updatedBalance = parseInt(accountBalance) - parseInt(totalCost);
+        console.log(updatedBalance)
+        if (updatedBalance < 1) {
+            setAccountBalance(accountBalance);
+            alert("Not Enough Nuts. Please Nut Up in your profile.");
+            return
+        } else {
+            const formData = {
+                account_balance: parseInt(updatedBalance),
+            }
+            fetch(`/users/${currentUser.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(r => r.json())
+            .then(user => {
+                setAccountBalance(user.account_balance)
+                console.log(user.account_balance)
+                console.log(accountBalance)
+                handleTransaction(user)
+            })
+        }
+    }
+
+    function handleTransaction(currentUser) {
+        setAccountBalance(currentUser.account_balance)
+        console.log(currentUser)
+        console.log(accountBalance)
+        console.log(currentUser.account_balance)
+        console.log("this is the transaction")
+        cart.forEach((item) => {
+            const formData = {
+                user_id: currentUser.id,
+                item_id: item.id
+            }
+            fetch("/transactions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(r => r.json())
+                .then(data => {
+                    onItemAdd(data)
+                    history.push(`/items/${data.id}`)
+                })
+            }
+        )}
 
     // Handle Vendor Add & Delete
     function handleVendorAdd(addVendor) {
@@ -148,7 +216,7 @@ function App() {
                     <Home currentUser={currentUser}/>
                 </Route>
                 <Route exact path="/shoppingcart">
-                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors} onRemoveFromCart={handleRemoveFromCart}/>
+                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors} onClearCart={handleClearCart} onCheckOut={handleCheckOut} onTransaction={handleTransaction}/>
                 </Route>
                 <Route exact path="/items">
                     <ItemList items={items} vendors={vendors}/>

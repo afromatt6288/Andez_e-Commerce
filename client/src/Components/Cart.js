@@ -4,55 +4,30 @@ import ItemItem from "./ItemItem";
 // import ItemDetail from "./ItemDetail";
 import { Card } from "semantic-ui-react"
 
-function Cart({ items, vendors, currentUser, cart}) {
-    const [totalCost, setTotalCost] = useState(0)
-    const [accountBalance, setAccountBalance] = useState(`${currentUser.account_balance}`);
+function Cart({ items, vendors, currentUser, cart, onClearCart, onCheckOut, onTransaction}) {
+    // const [totalCost, setTotalCost] = useState(0)
+    // const [accountBalance, setAccountBalance] = useState(`${currentUser.account_balance}`);
 
-    useEffect(() => {
-        let totalCost = 0;
-        cart.forEach((item) => {
-          totalCost += item.price;
-        });
-        setTotalCost(totalCost);
-    }, [cart, totalCost])
+    // useEffect(() => {
+    //     let totalCost = 0;
+    //     cart.forEach((item) => {
+    //       totalCost += item.price;
+    //     });
+    //     setTotalCost(totalCost);
+    // }, [cart, totalCost])
 
-    function handleCheckOut(e){
-        e.preventDefault()
-        console.log(accountBalance)
-        console.log(totalCost)
-        const updatedBalance = parseInt(accountBalance) - parseInt(totalCost);
-        console.log(updatedBalance)
-        if (updatedBalance < 1) {
-            setAccountBalance(accountBalance);
-            alert("Not Enough Nuts. Please Nut Up in your profile.");
-            return
-        } else {
-            const formData = {
-                account_balance: parseInt(updatedBalance),
-            }
-            fetch(`/users/${currentUser.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(r => r.json())
-            .then(user => {
-                setAccountBalance(user.account_balance)
-                console.log(user.account_balance)
-                console.log(accountBalance)
-                handleTransaction(user)
-            })
-        }
+    function handleCheckOut(){
+        onCheckOut()
+        handleTransaction(currentUser)
     }
 
     function handleTransaction(currentUser) {
-        setAccountBalance(currentUser.account_balance)
-        console.log(currentUser)
-        console.log(accountBalance)
-        console.log(currentUser.account_balance)
-        console.log("this is the transaction")
+        onTransaction(currentUser)
+        onClearCart([])
+    }
+
+    function handleClearCart(){
+        onClearCart([])
     }
 
 
@@ -62,11 +37,12 @@ function Cart({ items, vendors, currentUser, cart}) {
             <div className="cart-list">
                 <Card.Group className="cards" itemsPerRow={6}>
                     {cart.map((item)=> (
-                    <ItemItem key={item.id} item={item} />
-                    ))}
+                        <ItemItem key={item.id} item={item} />
+                        ))}
                 </Card.Group>
+                <button className="cart-clear" type="submit" onClick={handleClearCart}>Clear Cart</button>
             </div>
-            <button type="submit" onClick={handleCheckOut}>Check Out</button>
+            <button className="cart-checkout"type="submit" onClick={handleCheckOut}>Check Out</button>
         </section>
     );
 }
