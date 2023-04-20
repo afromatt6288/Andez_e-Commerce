@@ -10,7 +10,9 @@ function ItemDetail({admin, onItemDelete}) {
     useEffect(() => {
         fetch(`http://127.0.0.1:5555/items/${id}`)
             .then(r => r.json())
-            .then(data => setItem(data))
+            .then(data => {
+                console.group(data)
+                setItem(data[0])})
     }, [id])
     
     if (!item) return <h2>Loading...</h2>
@@ -34,8 +36,8 @@ function ItemDetail({admin, onItemDelete}) {
             </header>
             <div className="detail-intro">
                 <span>
-                    <label>Category: <p>{category}</p></label> 
-                    <label>Price: <p>{price}</p></label>
+                    <label>Category: <span>{category}</span></label> 
+                    <label>Price: <span>{price}</span></label>
                 </span>
                 <p>Description: {description}</p>
                 <h2>Vendors:</h2>

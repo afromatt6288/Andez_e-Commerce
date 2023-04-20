@@ -10,7 +10,7 @@ function VendorDetail({admin, onVendorDelete}) {
     useEffect(() => {
         fetch(`http://127.0.0.1:5555/vendors/${id}`)
             .then(r => r.json())
-            .then(data => setVendor(data))
+            .then(data => setVendor(data[0]))
     }, [id])
     
     if (!vendor) return <h2>Loading...</h2>

@@ -127,7 +127,7 @@ function App() {
                     <ItemNew key={items.id} onItemAdd={handleItemAdd}/>
                 </Route> : null }
                 <Route exact path="/items/:id">
-                    <ItemDetail admin={admin} onItemDelete={handleItemDelete}/>
+                    <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete}/>
                 </Route>
                 <Route exact path="/vendors">
                     <VendorList items={items} vendors={vendors}/>

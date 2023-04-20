@@ -56,39 +56,61 @@ TBD
 ## Assignment Goals
 As per the Project Pitch Template:
 
-In Progress... Use a Flask API backend with a React frontend.
+Done! - Use a Flask API backend with a React frontend.
+    Can be improved. But, there is a backend and a React frontend... though they can be fleshed out further.
     
 
-In Progress... Have at least three models on the backend, that include the following:
+Done! - Have at least three models on the backend, that include the following:
     At least two one-to-many relationships.
+        User to Transaction. Item to Transaction. Vendor to VendorItem. Item to VendorItem.
     At least one reciprocal many-to-many relationship.
+        Users to Items through Transactions. Vendors to Items through VendorItems
 
-In Progress... Full CRUD actions for at least one resource.
+Done! - Full CRUD actions for at least one resource.
     Create:
+        User signup creates a db entry
+        Item created in Add Item Tab (admin only)
+        Vendor created in Add Vendor Tab (admin only)
 
     Read:
+        Users can be all seen in Users Tab (admin only)
+        Items can be viewed in Items Tab
+        Vendors can be viewed in Vendors Tab
 
     Update:
+        Users account balance, email, and address can all be changed in Users Tab (admin only)
 
     Delete:
+        Users can be deleted through the Users Tab (admin only)
+        Items can be deleted in their Detail (admin only)
+        Vendors can be deleted in their Detail (admin only)
 
 In Progress... Minimum of create and read actions for EACH resource.
+    Create and Read done for Users, Items, and Vendors. Still need Transactions and Vendor Items.
 
-In Progress... Use at least 1 validations on the Backend tables
+Done! - Use at least 1 validations on the Backend tables
+    So many that I wont list them all here. 
 
-In Progress... Have at least three different client-side routes using React Router. 
+Done! - Have at least three different client-side routes using React Router. 
     Be sure to include a nav bar or other UI element that allows users to navigate between routes.
+        NavBar has 3 routes for Users, and an additional 3 for Admin
+        
 
-In Progress... Connect the client and server using fetch().
+Done! - Connect the client and server using fetch().
+    Many connections (for the CRUD above)
 
-In Progress... Implement Authorization
+Done! - Implement Authorization
+    - Password Hash is present. 
+    - Invalid users are denied login, and receive a message saying they are not valid. 
+    - Sections of the app are not accessible unless one is an authorized admin
 
 In Progress... Have a clear readMe with:
-    An Overview about what your project is about
+    Done! - An Overview about what your project is about
     Instructions for running your project
     Instructions for using your project
 
-In Progress... Demonstrate good git practices with your partner
+Done! - Demonstrate good git practices with your partner
+    We have all sorts of adds, commits, pushes, branches and merges. 
 
 
 ## Project Pitch/Ideas. 
