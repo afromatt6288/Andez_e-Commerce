@@ -18,7 +18,6 @@ function ItemNew({onItemAdd}) {
                 description: description,
                 price: parseInt(price),
                 category: category,
-                // vendors: {}
         }
         fetch("/items", {
             method: "POST",

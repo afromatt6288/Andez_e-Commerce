@@ -15,7 +15,7 @@ function VendorDetail({admin, onVendorDelete}) {
     
     if (!vendor) return <h2>Loading...</h2>
     
-    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, items} = vendor
+    const {vendor_name, vendor_email, vendor_address, vendor_account_balance} = vendor
     const allitems = vendor.vendoritems.map((vi)=>vi.item)
 
     function handleDeleteClick() {
@@ -35,10 +35,8 @@ function VendorDetail({admin, onVendorDelete}) {
             </header>
             <div className="vendor-detail-intro">
                 <span>
-                    <label>Vendor Account Balance: <p>{vendor_account_balance}</p></label> 
-                </span>
-                <span>
                     <label>Vendor Email:<p>{vendor_email}</p></label> 
+                    <label>Vendor Account Balance: <p>{vendor_account_balance}</p></label> 
                     <label>Vendor Address:<p>{vendor_address}</p></label>
                 </span>
                 <h2>Items:</h2>

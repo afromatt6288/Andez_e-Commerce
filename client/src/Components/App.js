@@ -9,6 +9,7 @@ import VendorList from "./VendorList"
 import VendorDetail from "./VendorDetail";
 import VendorNew from "./VendorNew"
 import Cart from "./Cart"
+import Transactions from "./Transactions"
 import Login from "./Login"
 import Users from "./Users"
 
@@ -94,7 +95,14 @@ function App() {
     const [cart, setCart] = useState([])
     const [CartCounter, setCartCounter] = useState(0);
     const [totalCost, setTotalCost] = useState(0)
-    const [accountBalance, setAccountBalance] = useState(`${currentUser.account_balance}`);
+    const [accountBalance, setAccountBalance] = useState(0);
+
+    // Update the accountbalance state variable when currentUser changes
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         setAccountBalance(currentUser.account_balance);
+    //     }
+    //     }, [currentUser]);
 
     useEffect(() => {
         let cartCount = 0;
@@ -127,14 +135,26 @@ function App() {
         console.log(cart)
     }
 
+    function handleAccountBalanceUpdate(updatedBalance) {
+        setAccountBalance(updatedBalance);
+      }
+    
+    // function handleAccountBalanceUpdate(updatedBalance) {
+    //     setCurrentUser({
+    //         ...currentUser,
+    //         account_balance: updatedBalance
+    //     });
+    // }
+
     function handleCheckOut(){
-        setAccountBalance(currentUser.account_balance)
+        // setAccountBalance(currentUser.account_balance)
+        console.log(currentUser.account_balance)
         console.log(accountBalance)
         console.log(totalCost)
-        const updatedBalance = parseInt(accountBalance) - parseInt(totalCost);
+        const updatedBalance = parseInt(currentUser.account_balance) - parseInt(totalCost);
         console.log(updatedBalance)
         if (updatedBalance < 1) {
-            setAccountBalance(accountBalance);
+            setAccountBalance(currentUser.account_balance);
             alert("Not Enough Nuts. Please Nut Up in your profile.");
             return
         } else {
@@ -158,15 +178,17 @@ function App() {
         }
     }
 
-    function handleTransaction(currentUser) {
-        setAccountBalance(currentUser.account_balance)
-        console.log(currentUser)
+    function handleTransaction(user) {
+        setAccountBalance(user.account_balance)
+        console.log(user)
         console.log(accountBalance)
-        console.log(currentUser.account_balance)
+        console.log(user.account_balance)
+        console.log(cart)
         console.log("this is the transaction")
         cart.forEach((item) => {
+            console.log(item)
             const formData = {
-                user_id: currentUser.id,
+                user_id: user.id,
                 item_id: item.id
             }
             fetch("/transactions", {
@@ -178,8 +200,9 @@ function App() {
             })
                 .then(r => r.json())
                 .then(data => {
-                    onItemAdd(data)
-                    history.push(`/items/${data.id}`)
+                    console.log(data)
+                    setCart([])
+                    history.push(`/transactions`)
                 })
             }
         )}
@@ -221,6 +244,9 @@ function App() {
                 <Route exact path="/items">
                     <ItemList items={items} vendors={vendors}/>
                 </Route>
+                <Route exact path="/transactions">
+                    <Transactions currentUser={currentUser}/>
+                </Route>
                 {admin ? 
                 <Route exact path="/items/new">
                     <ItemNew key={items.id} onItemAdd={handleItemAdd}/>
@@ -240,7 +266,7 @@ function App() {
                 </Route>
                 {admin ? 
                 <Route exact path="/users">
-                    <Users users={users} onUserDelete={handleUserDelete}/>
+                    <Users users={users} onUserDelete={handleUserDelete} onAccountBalanceUpdate={handleAccountBalanceUpdate}/>
                 </Route> : null }
                 <Route path="*">
                     <h1>404 not found</h1>

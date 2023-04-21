@@ -145,7 +145,7 @@ class Item(db.Model, SerializerMixin):
 class Transaction(db.Model, SerializerMixin): 
     __tablename__ = 'transactions'
 
-    serialize_rules = ('-user.transactions', '-item.transactions', '-created_at', '-updated_at',)
+    serialize_rules = ('-user.transactions', '-item.transactions', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     refund = db.Column(db.Boolean)

@@ -18,7 +18,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
         
         if (!item) return <h2>Loading...</h2>
         
-    const { name, description, image, category, price, vendors} = item
+    const { name, description, image, category, price} = item
     const allvendors = item.vendoritems.map((vi)=>vi.vendor)
     
     function handleDeleteClick() {
