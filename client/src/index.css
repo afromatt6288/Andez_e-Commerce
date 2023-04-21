@@ -93,6 +93,7 @@ button {
 }
 
 .cart-items
+/* .cart-checkout */
 button[type="submit"] {
   background-color: #4CAF50;
   color: rgb(190, 13, 13);
@@ -104,6 +105,23 @@ button[type="submit"] {
   width: 15%;
   position: absolute;
   bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cart-list
+/* .cart-clear */
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: rgb(190, 13, 13);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 15%;
+  position: absolute;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -162,6 +180,22 @@ button[type="submit"] {
   letter-spacing: 2px;
 }
 
+.detail-intro span
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: rgb(190, 13, 13);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 15%;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 .detail-intro h2{
   font-size: 3vw;
@@ -176,13 +210,6 @@ button[type="submit"] {
   margin-top: -5px;
   text-align: center;
   color: blue;
-}
-
-.detail-intro span {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .detail-intro label {
@@ -200,6 +227,31 @@ button[type="submit"] {
 .detail-intro p {
   margin: 0;
   font-weight: bold;
+}
+
+.detail-intro span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.detail-intro span
+button[type="submit"] {
+  /* background-color: #4CAF50; */
+  /* color: rgb(190, 13, 13); */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  /* cursor: pointer; */
+  /* font-size: 16px; */
+  /* width: 15%; */
+  /* position: absolute; */
+  bottom: 85%;
+  /* top:12%; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  z-index: 9999
 }
 
 .detail-image {

@@ -16,9 +16,9 @@ function VendorDetail({admin, onVendorDelete}) {
     
     if (!vendor) return <h2>Loading...</h2>
     
-    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, vendoritems, items} = vendor
-    // console.log(vendor_name, items, "g",vendor.vendoritems[0].item, "s")
+    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, items} = vendor
     const allitems = vendor.vendoritems.map((vi)=>vi.item)
+
     function handleDeleteClick() {
         fetch(`/vendors/${id}`, {
           method: "DELETE"

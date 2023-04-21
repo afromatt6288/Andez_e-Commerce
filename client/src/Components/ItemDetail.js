@@ -10,22 +10,18 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const history = useHistory()
     useEffect(() => {
         fetch(`/items/${id}`)
-            .then(r => r.json())
-            .then(data => {
-                console.log(data)
-                console.log(data[0])
-                setItem(data[0])})
-    }, [id])
-    
-    if (!item) return <h2>Loading...</h2>
-    
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
+            console.log(data[0])
+            setItem(data[0])})
+        }, [id])
+        
+        if (!item) return <h2>Loading...</h2>
+        
     const { name, description, image, category, price, vendors} = item
-    // if (item.vendoritems.length > 0){
-    // console.log(item)
-    // console.log(item.vendoritems[0].vendor,"5555555", vendors)
-    // }
     const allvendors = item.vendoritems.map((vi)=>vi.vendor)
-    // console.log(item.vendoritems, allvendors)
+    
     function handleDeleteClick() {
         fetch(`/items/${id}`, {
           method: "DELETE"
@@ -44,11 +40,11 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                 <div className="container">
                     <span className="highlight">{name}</span>
                 </div>
-                <button onClick={handleAddToCart}>Add To Cart</button>
             </header>
             <div className="detail-intro">
                 <span>
-                    <label>Category: <span>{category}</span></label> 
+                    <label>Category: <span>{category}</span></label>
+                    <button type="submit" onClick={handleAddToCart}>Add To Cart</button> 
                     <label>Price: <span>{price}</span></label>
                 </span>
                 <p>Description: {description}</p>

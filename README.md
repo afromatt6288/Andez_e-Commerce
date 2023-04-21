@@ -71,11 +71,14 @@ Done! - Full CRUD actions for at least one resource.
         User signup creates a db entry
         Item created in Add Item Tab (admin only)
         Vendor created in Add Vendor Tab (admin only)
+        Items Created in the VendorItem table along an existing Vendor
 
     Read:
         Users can be all seen in Users Tab (admin only)
         Items can be viewed in Items Tab
         Vendors can be viewed in Vendors Tab
+        Items can be viewed in the Vendor Details through VendorItems
+        Vendors can be viewed in the Item Details through VendorItems
 
     Update:
         Users account balance, email, and address can all be changed in Users Tab (admin only)
@@ -88,7 +91,7 @@ Done! - Full CRUD actions for at least one resource.
         Vendors can be deleted in their Detail (admin only)
 
 In Progress... Minimum of create and read actions for EACH resource.
-    Create and Read done for Users, Items, and Vendors. Still need Transactions and Vendor Items.
+    Create and Read done for Users, Items, Vendors and VendorItems. Still need Transactions.
 
 Done! - Use at least 1 validations on the Backend tables
     So many that I wont list them all here. 
