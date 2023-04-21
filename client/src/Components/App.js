@@ -12,7 +12,8 @@ import Cart from "./Cart"
 import Login from "./Login"
 import Users from "./Users"
 import VendorItemNew from "./VendorItemNew";
-
+import ItemVendorNew
+ from "../ItemVendorNew";
 function App() {
     const [currentUser, setCurrentUser] = useState("")
     const [seen, setSeen] = useState(false)
@@ -164,6 +165,7 @@ function App() {
                 </Route> : null }
                 <Route exact path="/items/:id">
                     <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
+                    <ItemVendorNew onVendorAdd={handleVendorAdd} handleAddItemVendor={handleAddItemVendor}></ItemVendorNew>
                 </Route>
                 <Route exact path="/vendors">
                     <VendorList items={items} vendors={vendors}/>
@@ -174,7 +176,7 @@ function App() {
                 </Route> : null }
                 <Route exact path="/vendors/:id">
                     <VendorDetail admin={admin} onVendorDelete={handleVendorDelete}/>
-                    <VendorItemNew onItemAdd={handleItemAdd}></VendorItemNew>
+                    <VendorItemNew onItemAdd={handleItemAdd} handleAddItemVendor={handleAddItemVendor}></VendorItemNew>
                 </Route>
                 {admin ? 
                 <Route exact path="/users">

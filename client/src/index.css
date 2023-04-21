@@ -626,7 +626,15 @@ button[type="submit"]:hover {
   letter-spacing: 2px;
 }
 
+/* preston */
 .vendoritem-header{
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  left:0;
+}
+
+.itemvendor-header{
   display: inline-block;
   position: absolute;
   bottom: 0;
