@@ -1,12 +1,13 @@
 # Andez_e-Commerce
 
 ## Overview
-The Andez e-commerce site is a web application built with React, Next.js, Python, and SQL. It provides a platform for buying and selling items online. The site includes features such as user registration, login and logout, shopping cart functionality, and transaction history. Users can add Site Coins to their account using a fake credit card and use them to purchase items listed on the site. Items for sale are listed with details such as name, price, description, and vendor. Transactions are recorded with the user, items purchased, total price, and transaction date. Refunds can also be issued for specific items.
+The Andez e-commerce site is a web application built with React,Python, Flask, and SQL. It provides a platform for buying and selling items online. The site includes features such as user registration, login and logout, shopping cart functionality, and transaction history. Users can add Site Coins to their account using a fake credit card and use them to purchase items listed on the site. Items for sale are listed with details such as name, price, description, and vendor. Transactions are recorded with the user, items purchased, total price, and transaction date. The application includes Vendors, who have their own page with their name, items for sale. 
 
-As a stretch goal, the application includes Vendors, who have their own page with their name, items for sale, and reviews. This adds an extra layer of functionality to the site and allows users to view and purchase items from specific vendors.
+As a stretch goal, we would like to implement item and vendor reviews. We'd also like to have Refunds that can be issued for specific items. This would add an extra layer of functionality to the site.
 
 ## Setup / Running the Project (on Windows)
 Enter you terminal (however you have set up to do so.)
+    Make sure you can run 2 terminals for this. 
 
 ### Check Python version
 Type: python --version
@@ -24,33 +25,50 @@ https://docs.python.org/3/using/unix.html
 ### Install the Virtual Environment
 In your terminal, navigate to the root directory of this project:
 
-Python:
+Python/Flask:
 Type: pipenv install
 (it can take a little while, so please be patient)
 Type: pipenvshell to enter the virtual environment
-More to come
+cd into server
+Run the following commands:
+    export FLASK_APP=app.py
+    export FLASK_RUN_PORT=5555
+    flask db init
+    flask db revision --autogenerate -m 'Create tables' 
+    flask db upgrade 
+    chmod +x seed.py (to unlock permisions)
+    python seed.py (wait a moment)
+        If any of these give a hiccup, you can delete the instance and migration folders and run these again.
+    chmod +x app.py (to unlock permisions) 
 
 React:
-TBD
+cd into client
+Run the following Commands:
+    npm install
 
 Congrats, you are now configured and ready to run this program!
 
 ## Instructions:
 ### How to Start the program
-React:
-TBD
-
 Python/Flask:
-From the root folder of this project, in the command line of your terminal...
-Type: chmod +x lib/seed.py (to unlock permisions)
-Type: lib/seed.py (to populate the database. Otherwise the game will be empty.)
-Type: chmod +x lib/main.py (to unlock permisions)
-Type: lib/main.py
+from the server folder run:
+    python app.py
+
+React:
+in a second terminal:
+from the client folder run:
+    npm run start
+    you will be taken to http://localhost:4000
+        if that doesn't load right away, your terminal will also show another option that works more consistantly. You can navigate to it manually. It will look something like this:
+            http://172.17.32.198:4000 
 
 And it begins!
 
 ### How to access the programs Functions:
-TBD
+Login button on the upper right. 
+Create a Profile
+Log in
+Enjoy
 
 
 ## Assignment Goals
@@ -68,17 +86,20 @@ Done! - Have at least three models on the backend, that include the following:
 
 Done! - Full CRUD actions for at least one resource.
     Create:
-        User signup creates a db entry
+        User created at signup
         Item created in Add Item Tab (admin only)
         Vendor created in Add Vendor Tab (admin only)
-        Items Created in the VendorItem table along an existing Vendor
+        VendorItem created from both Vendor and Item Tabs
+        Transaction Created through Shopping Cart Tab
 
     Read:
         Users can be all seen in Users Tab (admin only)
+        Users can view their specific profile
         Items can be viewed in Items Tab
         Vendors can be viewed in Vendors Tab
         Items can be viewed in the Vendor Details through VendorItems
         Vendors can be viewed in the Item Details through VendorItems
+        Transactions can be viewed for logged in User
 
     Update:
         Users account balance, email, and address can all be changed in Users Tab (admin only)
@@ -87,18 +108,21 @@ Done! - Full CRUD actions for at least one resource.
     Delete:
         Users can be deleted through the Users Tab (admin only)
         Users can be deleted in their Profile
+        User deletion will also delete Transactions they are in.
         Items can be deleted in their Detail (admin only)
+        Item deletion will also delete Transactions, and VendorItems they are in. 
         Vendors can be deleted in their Detail (admin only)
+        Vendor deletion will also delete VendorItems they are in. 
 
-In Progress... Minimum of create and read actions for EACH resource.
-    Create and Read done for Users, Items, Vendors and VendorItems. Still need Transactions.
+Done! - Minimum of create and read actions for EACH resource.
+    Create and Read done for Users, Items, Vendors, VendorItems, and Transactions.
 
 Done! - Use at least 1 validations on the Backend tables
     So many that I wont list them all here. 
 
 Done! - Have at least three different client-side routes using React Router. 
     Be sure to include a nav bar or other UI element that allows users to navigate between routes.
-        NavBar has 3 routes for Users, and an additional 3 for Admin
+        NavBar has 4 routes for Users, and an additional 3 for Admin
         
 Done! - Connect the client and server using fetch().
     Many connections (for the CRUD above)
@@ -111,18 +135,19 @@ Done! - Implement Authorization
     - Users are denied accessing/increasing their funds without a valid cc
     - users cannot spend to below $1 Nut
 
-In Progress... Have a clear readMe with:
+Done! -  Have a clear readMe with:
     Done! - An Overview about what your project is about
-    Instructions for running your project
-    Instructions for using your project
+    Done! - Instructions for running your project
+    Done! - Instructions for using your project
 
 Done! - Demonstrate good git practices with your partner
     We have all sorts of adds, commits, pushes, branches and merges. 
+    We even have a revert from a merge. 
 
 
 ## Project Pitch/Ideas. 
 
-The Andez e-commerce site is a web application built with React, Next.js, Python, and SQL. It provides a platform for buying and selling items online. The site includes features such as user registration, login and logout, shopping cart functionality, and transaction history. Users can add Site Coins to their account using a fake credit card and use them to purchase items listed on the site. Items for sale are listed with details such as name, price, description, and vendor. Transactions are recorded with the user, items purchased, total price, and transaction date. Refunds can also be issued for specific items.
+The Andez e-commerce site is a web application built with React,Python, Flask, and SQL. It provides a platform for buying and selling items online. The site includes features such as user registration, login and logout, shopping cart functionality, and transaction history. Users can add Site Coins to their account using a fake credit card and use them to purchase items listed on the site. Items for sale are listed with details such as name, price, description, and vendor. Transactions are recorded with the user, items purchased, total price, and transaction date. Refunds can also be issued for specific items.
 
 As a stretch goal, the application includes Vendors, who have their own page with their name, items for sale, and reviews. This adds an extra layer of functionality to the site and allows users to view and purchase items from specific vendors.
 

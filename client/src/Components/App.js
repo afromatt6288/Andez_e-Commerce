@@ -9,6 +9,7 @@ import VendorList from "./VendorList"
 import VendorDetail from "./VendorDetail";
 import VendorNew from "./VendorNew"
 import Cart from "./Cart"
+import Transactions from "./Transactions"
 import Login from "./Login"
 import Users from "./Users"
 import VendorItemNew from "./VendorItemNew";
@@ -91,11 +92,12 @@ function App() {
         const updatedItems = items.filter(item => item.id !== id)
         setItems(updatedItems)
     }
+
     // Handle Shopping Cart Add, Clear, and Purchase
     const [cart, setCart] = useState([])
     const [CartCounter, setCartCounter] = useState(0);
     const [totalCost, setTotalCost] = useState(0)
-    const [accountBalance, setAccountBalance] = useState(`${currentUser.account_balance}`);
+    const [accountBalance, setAccountBalance] = useState(0);
 
     useEffect(() => {
         let cartCount = 0;
@@ -114,28 +116,18 @@ function App() {
     }, [cart, totalCost])
 
     function handleAddToCart(item){
-        console.log(cart)
-        console.log(`cart add ${item.id}`)
         const addToCart = [...cart, item]
         setCart(addToCart)
-        console.log(cart)
     }
 
     function handleClearCart(){
-        console.log(cart)
-        console.log(`Cart Cleared`)
         setCart([])
-        console.log(cart)
     }
-
+    
     function handleCheckOut(){
-        setAccountBalance(currentUser.account_balance)
-        console.log(accountBalance)
-        console.log(totalCost)
-        const updatedBalance = parseInt(accountBalance) - parseInt(totalCost);
-        console.log(updatedBalance)
+        const updatedBalance = parseInt(currentUser.account_balance) - parseInt(totalCost);
         if (updatedBalance < 1) {
-            setAccountBalance(accountBalance);
+            setAccountBalance(currentUser.account_balance);
             alert("Not Enough Nuts. Please Nut Up in your profile.");
             return
         } else {
@@ -152,22 +144,16 @@ function App() {
             .then(r => r.json())
             .then(user => {
                 setAccountBalance(user.account_balance)
-                console.log(user.account_balance)
-                console.log(accountBalance)
                 handleTransaction(user)
             })
         }
     }
 
-    function handleTransaction(currentUser) {
-        setAccountBalance(currentUser.account_balance)
-        console.log(currentUser)
-        console.log(accountBalance)
-        console.log(currentUser.account_balance)
-        console.log("this is the transaction")
+    function handleTransaction(user) {
+        setAccountBalance(accountBalance)
         cart.forEach((item) => {
             const formData = {
-                user_id: currentUser.id,
+                user_id: user.id,
                 item_id: item.id
             }
             fetch("/transactions", {
@@ -179,8 +165,8 @@ function App() {
             })
                 .then(r => r.json())
                 .then(data => {
-                    handleItemAdd(data)
-                    history.push(`/items/${data.id}`)
+                    setCart([])
+                    history.push(`/transactions`)
                 })
             }
         )}
@@ -212,7 +198,7 @@ function App() {
             <h5>Formerly Andez Nuts</h5>
             <div>
                 <button className="login" onClick={togglePop} >{currentUser ? "Profile" : "Log In"}</button>
-                {seen ? <Login toggle={togglePop} currentUser={currentUser} setCurrentUser={setCurrentUser} admin={admin} users={users} onAddUser={handleAddUser}/> : null}
+                {seen ? <Login toggle={togglePop} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} onAddUser={handleAddUser} onUserDelete={handleUserDelete}/> : null}
             </div>
             </header>
             {currentUser ? <NavBar admin={admin} CartCounter={CartCounter}/> : seen ? null : <h2 className="please">Please Log In</h2>}
@@ -221,20 +207,20 @@ function App() {
                     <Home currentUser={currentUser}/>
                 </Route>
                 <Route exact path="/shoppingcart">
-                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors} onClearCart={handleClearCart} onCheckOut={handleCheckOut} onTransaction={handleTransaction}/>
+                    <Cart cart={cart} currentUser={currentUser} onClearCart={handleClearCart} onCheckOut={handleCheckOut}/>
                 </Route>
                 <Route exact path="/items">
-                    <ItemList items={items} vendors={vendors}/>
+                    <ItemList items={items}/>
+                </Route>
+                <Route exact path="/transactions">
+                    <Transactions currentUser={currentUser}/>
                 </Route>
                 {admin ? 
                 <Route exact path="/items/new">
                     <ItemNew key={items.id} onItemAdd={handleItemAdd}/>
                 </Route> : null }
                 <Route exact path="/items/:id">
-                    <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
-                    {admin ? 
-                    <ItemVendorNew onVendorAdd={handleVendorAdd} handleAddItemVendor={handleAddItemVendor}></ItemVendorNew>
-                    :null}
+                    <ItemDetail admin={admin} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
                 </Route>
                 <Route exact path="/vendors">
                     <VendorList items={items} vendors={vendors}/>

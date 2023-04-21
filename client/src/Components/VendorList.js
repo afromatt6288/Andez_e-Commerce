@@ -31,7 +31,7 @@ function VendorList({vendors, items}) {
         <section id="vendors">
             <h2 className="header">Andez Vendors</h2>
             <div className="search-bar">
-                <VendorSearch search={search} onSearchChange={setSearch} filterByItemCategory={filterByItemCategory} onHandleItemCategoryFilter={setFilterByItemCategory} items={items} categories={uniqueCategories}/>
+                <VendorSearch search={search} onSearchChange={setSearch} filterByItemCategory={filterByItemCategory} onHandleItemCategoryFilter={setFilterByItemCategory} categories={uniqueCategories}/>
             </div>
             <div>
                 <div className="vendor-list">

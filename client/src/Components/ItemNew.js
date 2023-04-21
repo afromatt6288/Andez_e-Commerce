@@ -18,7 +18,6 @@ function ItemNew({onItemAdd}) {
                 description: description,
                 price: parseInt(price),
                 category: category,
-                // vendors: {}
         }
         fetch("/items", {
             method: "POST",
@@ -36,7 +35,6 @@ function ItemNew({onItemAdd}) {
             })
     }
     
-
     return (
         <section >
             <h3 className="header">Add New Item</h3>

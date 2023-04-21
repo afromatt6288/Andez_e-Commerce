@@ -1,6 +1,6 @@
 import React from "react";
 
-function VendorSearch({search, onSearchChange, onHandleItemCategoryFilter, filterByItemCategory, items, categories}) {
+function VendorSearch({search, onSearchChange, onHandleItemCategoryFilter, filterByItemCategory, categories}) {
 
   function handleItemCategoryFilter(e){
     onHandleItemCategoryFilter(e.target.value)

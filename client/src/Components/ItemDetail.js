@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
-import ItemNew from "./ItemNew";
-import VendorItemNew from "./VendorItemNew";
+import AddVendorByNameID from "./AddVendorByNameID";
 
 function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const [item, setItem] = useState(null);
@@ -19,7 +18,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
         
         if (!item) return <h2>Loading...</h2>
         
-    const { name, description, image, category, price, vendors} = item
+    const { name, description, image, category, price} = item
     const allvendors = item.vendoritems.map((vi)=>vi.vendor)
     
     function handleDeleteClick() {
@@ -38,7 +37,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
         <section>
             <header className="detail-header">
                 <div className="container">
-                    <span className="highlight">{name}</span>
+                    <span className="highlight">{name} | #{id}</span>
                 </div>
             </header>
             <div className="detail-intro">
@@ -54,7 +53,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                         {allvendors && allvendors.map((vendor, index) => (
                             <div key={String(vendor.id)+"ind"+String(index)}>
                                 <Link to={`/vendors/${vendor.id}`}>
-                                    <h4>{vendor.vendor_name}</h4>
+                                    <h4>{vendor.vendor_name} | #{vendor.id}</h4>
                                 </Link>
                             </div>
                         ))}
@@ -76,6 +75,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                         🗑
                     </span>
                 </button>
+                <AddVendorByNameID itemID={id}></AddVendorByNameID>
             </div>
             ) : null}
         </section>

@@ -15,7 +15,7 @@ function NavBar({admin, CartCounter}) {
             <span>ADMIN : 
             <NavLink exact to="/items/new">Add Item</NavLink> 
             <NavLink exact to="/vendors/new">Add Vendor</NavLink> 
-            <NavLink exact to="/users">Users</NavLink>    
+            <NavLink exact to="/users">Users</NavLink> 
             </span>       
         </nav>
         : null }

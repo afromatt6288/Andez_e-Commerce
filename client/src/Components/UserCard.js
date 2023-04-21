@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function UserCard({user, onUserDelete}) {
-    const {id, username, email, shipping_address, account_balance} = user   
-    const [accountBalance, setAccountBalance] = useState(`${account_balance}`);
+    const {id, username, email, shipping_address} = user   
+    const [accountBalance, setAccountBalance] = useState(0);
     const [funds, setFunds] = useState(0)
     const [newEmail, setNewEmail] = useState(`${email}`)
     const [newShippingAddress, setNewShippingAddress] = useState(`${shipping_address}`)
@@ -12,6 +13,12 @@ function UserCard({user, onUserDelete}) {
         secret: ''
     })
     const [isCreditCardValid, setIsCreditCardValid] = useState(false)
+
+    useEffect(() => {
+        if (user) {
+            setAccountBalance(user.account_balance);
+        }
+        }, [user]);
 
     function handleCreditCardChange(e) {
         const {name, value} = e.target
@@ -24,20 +31,20 @@ function UserCard({user, onUserDelete}) {
 
     function handleUpdate(e) {
         e.preventDefault()
-        if ((funds != 0) && (!isCreditCardValid)) {
+        if ((funds !== 0) && (!isCreditCardValid)) {
             alert("Please enter valid credit card information.")
             return
-        }
-        const formData = {
-            email: newEmail,
-            shipping_address: newShippingAddress,
-            account_balance: parseInt(accountBalance) + parseInt(funds),
         }
         const updatedBalance = parseInt(accountBalance) + parseInt(funds);
         if (updatedBalance < 1) {
             setAccountBalance(accountBalance);
             alert("Not Enough Nuts");
-        } else {
+        }
+        const formData = {
+            email: newEmail,
+            shipping_address: newShippingAddress,
+            account_balance: updatedBalance,
+        }
             fetch(`/users/${id}`, {
                 method: "PATCH",
                 headers: {
@@ -52,7 +59,6 @@ function UserCard({user, onUserDelete}) {
                 setNewShippingAddress(user.shipping_address)
             })
         }
-    }
 
     function handleUserDelete() {
         fetch(`/users/${id}`, {
@@ -65,19 +71,15 @@ function UserCard({user, onUserDelete}) {
         <div className ="users">
             <h3>{username}</h3>
             <h3>$ {accountBalance} Nuts</h3>
+            <Link to={`/transactions`}>Order History</Link>
             <form>
-                <label> Update Email</label> 
-                <br/>
+                <label> Update Email</label>
                 <input type="text" onChange={e => setNewEmail(e.target.value)} value={newEmail}/>
-                <br/>
                 <label> Update Address </label>
-                <br/>
                 <input type="text" onChange={e => setNewShippingAddress(e.target.value)} value={newShippingAddress}/>
-                <br/>
                 {isCreditCardValid ? (
                     <>
                     <label> Add Funds </label>
-                    <br/>
                     <input type="number" onChange={e => setFunds(e.target.value)} value={`${funds}`}/>
                     </>
                 ) : (
@@ -86,16 +88,11 @@ function UserCard({user, onUserDelete}) {
                     </>
                 )}
                 <label> Credit Card Number </label>
-                <br/>
                 <input type="number" name="number" onChange={handleCreditCardChange} value={creditCard.number}/>
-                <br/>
                 <label> Exp Date </label> 
-                <br/>
                 <input type="text" name="expiration" onChange={handleCreditCardChange} value={creditCard.expiration}/>
-                <br/>
                 <label> Secret Key </label>
-                <br/><input type="number" name="secret" onChange={handleCreditCardChange} value={creditCard.secret}/>
-                <br/>
+                <input type="number" name="secret" onChange={handleCreditCardChange} value={creditCard.secret}/>
                 <button type="submit" onClick={handleUpdate}>Submit Changes</button>   
             </form>
             <button onClick={handleUserDelete}>Delete Account</button>

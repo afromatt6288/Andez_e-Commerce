@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
-import VendorItemNew from "./VendorItemNew";
+import AddItemByID from "./AddItemByID"
 
 function VendorDetail({admin, onVendorDelete}) {
     const [vendor, setVendor] = useState(null);
@@ -16,7 +16,7 @@ function VendorDetail({admin, onVendorDelete}) {
     
     if (!vendor) return <h2>Loading...</h2>
     
-    const {vendor_name, vendor_email, vendor_address, vendor_account_balance, items} = vendor
+    const {vendor_name, vendor_email, vendor_address, vendor_account_balance} = vendor
     const allitems = vendor.vendoritems.map((vi)=>vi.item)
 
     function handleDeleteClick() {
@@ -31,15 +31,13 @@ function VendorDetail({admin, onVendorDelete}) {
         <section>
             <header className="vendor-detail-header">
                 <div className="container">
-                    <span className="highlight">{vendor_name}</span>
+                    <span className="highlight">{vendor_name} | #{id}</span>
                 </div>
             </header>
             <div className="vendor-detail-intro">
                 <span>
-                    <label>Vendor Account Balance: <p>{vendor_account_balance}</p></label> 
-                </span>
-                <span>
                     <label>Vendor Email:<p>{vendor_email}</p></label> 
+                    <label>Vendor Account Balance: <p>{vendor_account_balance}</p></label> 
                     <label>Vendor Address:<p>{vendor_address}</p></label>
                 </span>
                 <h2>Items:</h2>
@@ -47,7 +45,7 @@ function VendorDetail({admin, onVendorDelete}) {
                     <Card.Group className="cards" itemsPerRow={2}>
                         {allitems && allitems.map((item) => (
                             <div key={item.id}>
-                                <h4>{item.name}</h4>
+                                <h4>{item.name} | #{item.id}</h4>
                                 <Link to={`/items/${item.id}`}>
                                     <img className="img-thumb" src={item.image} alt={item.name} />
                                 </Link>
@@ -69,6 +67,7 @@ function VendorDetail({admin, onVendorDelete}) {
                         🗑
                     </span>
                 </button>
+                <AddItemByID vendorID={id}>hi!</AddItemByID>
             </div>
             ) : null}
 

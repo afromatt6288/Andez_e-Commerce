@@ -6,11 +6,10 @@ function ItemItem({ item }) {
 
     return (
         <div className="item-item">
-            {/* console.log({id}) */}
             <Link to={`/items/${id}`}>
                 <img className="img-thumb" src={image} alt={name} />
             </Link>
-            <p>{name}</p>
+            <p>{name} | #{id}</p>
             <p>{category}</p>
             <p>${price} Nuts</p>
         </div>
