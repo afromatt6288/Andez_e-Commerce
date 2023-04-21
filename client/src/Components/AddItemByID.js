@@ -4,7 +4,7 @@ import { useState } from "react"
 export default function AddItemByID({vendorID}){
     const [itemID, setItemID] = useState(null)
 
-    function handleSubmit(it_id){
+    function handleSubmit(){
             fetch("/vendoritems", {
                 method:"POST",
                 headers:{
@@ -16,6 +16,7 @@ export default function AddItemByID({vendorID}){
                 })
             }).then(resp=>resp.json())
     }
+
 
     return (
     <div className="add-item-by-id">

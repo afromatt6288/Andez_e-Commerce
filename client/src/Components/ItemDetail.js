@@ -55,8 +55,8 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                 <h2>Vendors:</h2>
                 <div className="item-vendor-list">
                     <Card.Group className="cards" itemsPerRow={2}>
-                        {allvendors && allvendors.map((vendor) => (
-                            <div key={vendor.id}>
+                        {allvendors && allvendors.map((vendor, index) => (
+                            <div key={String(vendor.id)+"ind"+String(index)}>
                                 <Link to={`/vendors/${vendor.id}`}>
                                     <h4>{vendor.vendor_name}</h4>
                                 </Link>
