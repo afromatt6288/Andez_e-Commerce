@@ -179,7 +179,7 @@ function App() {
             })
                 .then(r => r.json())
                 .then(data => {
-                    onItemAdd(data)
+                    handleItemAdd(data)
                     history.push(`/items/${data.id}`)
                 })
             }
