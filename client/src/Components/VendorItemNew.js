@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import AddItemByID from "./AddItemByID";
 
 function VendorItemNew({onItemAdd, handleAddItemVendor}) {
 
@@ -67,6 +68,7 @@ function VendorItemNew({onItemAdd, handleAddItemVendor}) {
                 <br/>
                 <button type="submit">Submit</button>
             </form>
+            <AddItemByID vendorID={id}>hi!</AddItemByID>
         </section>
     )
 }
