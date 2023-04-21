@@ -84,7 +84,35 @@ with app.app_context():
         image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
         description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
     )
-    items = [item_1]
+    item_2 = Item(
+        name="Andez Nuts (Mildly Salty)",
+        price=4,
+        category="Featured Items",
+        image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
+        description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
+    )
+    item_3 = Item(
+        name="Andez Nuts (Moderately Salty)",
+        price=4,
+        category="Featured Items",
+        image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
+        description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
+    )
+    item_4 = Item(
+        name="Andez Nuts (Extra Salty)",
+        price=4,
+        category="Featured Items",
+        image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
+        description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
+    )
+    item_5 = Item(
+        name="Andez Nuts (Ridiculously Salty)",
+        price=4,
+        category="Featured Items",
+        image="https://ih1.redbubble.net/image.853066046.9330/poster,504x498,f8f8f8-pad,600x600,f8f8f8.u4.jpg",
+        description="Andez Nuts are the biggest, best, sweetest, and saltiest nuts you will ever have in your mouth. All types of nuts can be Andez Nuts. It just comes down to personal preference.",
+    )
+    items = [item_1, item_2, item_3, item_4, item_5]
     treenutnames = ["almonds", "cashews", "hazelnuts", "macadamia nuts", "pecans", "pine nuts", "pistachios", "walnuts"]
     peanutnames = ["peanuts"]
     seednames = ["sunflower seeds", "pumpkin seeds"]
