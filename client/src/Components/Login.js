@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import UserNew from "./UserNew"
 import UserCard from "./UserCard"
 
-function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onAddUser, onUserDelete}) {
+function Login ({currentUser, setCurrentUser, toggle, users, onAddUser, onUserDelete}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [isPasswordSecure, setIsPasswordSecure] = useState(true)
@@ -34,8 +34,6 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
           if (r.ok) {
             r.json().then((user) => {
               setCurrentUser(user)
-              console.log("Login.js Line 26 - for logging in")
-              console.log(user)
             })
             history.push(`/`)
             toggle()
@@ -50,8 +48,6 @@ function Login ({currentUser, setCurrentUser, toggle, admin, onAdmin, users, onA
         }
         
       function handleLogoutClick() {
-        console.log("Login.js Line 42 - for logging out")
-        console.log(currentUser)
         fetch("/logout", { method: "DELETE" }).then((r) => {
           if (r.ok) {
             setCurrentUser(null);

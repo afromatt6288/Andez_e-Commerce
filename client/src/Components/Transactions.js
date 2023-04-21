@@ -16,7 +16,6 @@ function Transactions({currentUser}) {
     }, [])
 
     const trans = transactions.filter(transaction => transaction.user_id === currentUser.id)
-    console.log(trans)
 
     return (
         <section id="transactions">

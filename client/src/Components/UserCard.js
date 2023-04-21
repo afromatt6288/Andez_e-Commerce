@@ -43,7 +43,7 @@ function UserCard({user, onUserDelete}) {
         const formData = {
             email: newEmail,
             shipping_address: newShippingAddress,
-            account_balance: parseInt(accountBalance) + parseInt(funds),
+            account_balance: updatedBalance,
         }
             fetch(`/users/${id}`, {
                 method: "PATCH",

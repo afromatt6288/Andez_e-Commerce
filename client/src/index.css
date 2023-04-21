@@ -1,8 +1,9 @@
 .actions {
   position: absolute;
-  top: 12rem;
+  top: 9rem;
   transform: translateY(-50%);
-  right: 12rem;
+  right: 17rem;
+  right: max(15%, 190px);
 }
 
 .admin h4 {
@@ -311,6 +312,11 @@ button[type="submit"] {
   background-color: #7010ac79;
 }
 
+.item-item p{
+  margin: 0;
+  line-height: 1.6em;
+}
+
 .item-list {
   border: 5px groove #7010ac; 
   border-radius: 30px;  
@@ -349,7 +355,7 @@ button[type="submit"] {
   display: inline-flex;
   width: 70px;
   position: absolute;
-  top: 1300%;
+  top: max(1515%, 360px);
   right: -2%;
   left: -300%;
   transform: translateY(-50%);
@@ -363,8 +369,8 @@ button[type="submit"] {
 
 .modal {
   position: absolute;
-  top: 15.5%;
-  left: 91%;
+  top: max(10%, 90px);
+  left: 92%;
   transform: translate(-50%, -50%);
   background-color: #d0c5d66e;
   padding: 2px;
@@ -373,8 +379,8 @@ button[type="submit"] {
 
 .modal .profile {
   position: absolute;
-  top: 430%;
-  left: 40%;
+  top: max(650%, 160px);
+  right: max(-2100%, -5000px);
   transform: translate(-50%, -50%);
   padding: -15px;
   z-index: 9999;
@@ -555,8 +561,6 @@ button[type="submit"]:hover {
   border: 2px solid #7010ac;
   border-radius: 10px;
   padding: 10px;
-  /* margin-left: -20px;
-  margin-right: -20px; */
   margin: .75%;
   width: 200px;
   height: 150px;
@@ -666,10 +670,13 @@ button[type="submit"]:hover {
 }
 
 .vendor-detail-intro h2{
+  position: relative;
   font-size: 3vw;
   text-align: center;
   color: blue;
-  background-color: rgba(211, 211, 211, 0.2);
+  width: 25%;
+  left: 38%;
+  background-color: #e6deea79;
 }
 
 .vendor-detail-intro h3{
@@ -696,7 +703,7 @@ button[type="submit"]:hover {
   width: calc(20% - 20px);
   margin: 5px;
   padding: 5px;
-  background-color: rgb(211, 211, 211, 0.5);
+  background-color: rgba(83, 38, 137, 0.5);
 }
 
 .vendor-detail-intro p {

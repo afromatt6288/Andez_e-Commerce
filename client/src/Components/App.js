@@ -91,18 +91,12 @@ function App() {
         const updatedItems = items.filter(item => item.id !== id)
         setItems(updatedItems)
     }
+
     // Handle Shopping Cart Add, Clear, and Purchase
     const [cart, setCart] = useState([])
     const [CartCounter, setCartCounter] = useState(0);
     const [totalCost, setTotalCost] = useState(0)
     const [accountBalance, setAccountBalance] = useState(0);
-
-    // Update the accountbalance state variable when currentUser changes
-    // useEffect(() => {
-    //     if (currentUser) {
-    //         setAccountBalance(currentUser.account_balance);
-    //     }
-    //     }, [currentUser]);
 
     useEffect(() => {
         let cartCount = 0;
@@ -121,38 +115,16 @@ function App() {
     }, [cart, totalCost])
 
     function handleAddToCart(item){
-        console.log(cart)
-        console.log(`cart add ${item.id}`)
         const addToCart = [...cart, item]
         setCart(addToCart)
-        console.log(cart)
     }
 
     function handleClearCart(){
-        console.log(cart)
-        console.log(`Cart Cleared`)
         setCart([])
-        console.log(cart)
     }
-
-    function handleAccountBalanceUpdate(updatedBalance) {
-        setAccountBalance(updatedBalance);
-      }
     
-    // function handleAccountBalanceUpdate(updatedBalance) {
-    //     setCurrentUser({
-    //         ...currentUser,
-    //         account_balance: updatedBalance
-    //     });
-    // }
-
     function handleCheckOut(){
-        // setAccountBalance(currentUser.account_balance)
-        console.log(currentUser.account_balance)
-        console.log(accountBalance)
-        console.log(totalCost)
         const updatedBalance = parseInt(currentUser.account_balance) - parseInt(totalCost);
-        console.log(updatedBalance)
         if (updatedBalance < 1) {
             setAccountBalance(currentUser.account_balance);
             alert("Not Enough Nuts. Please Nut Up in your profile.");
@@ -171,22 +143,14 @@ function App() {
             .then(r => r.json())
             .then(user => {
                 setAccountBalance(user.account_balance)
-                console.log(user.account_balance)
-                console.log(accountBalance)
                 handleTransaction(user)
             })
         }
     }
 
     function handleTransaction(user) {
-        setAccountBalance(user.account_balance)
-        console.log(user)
-        console.log(accountBalance)
-        console.log(user.account_balance)
-        console.log(cart)
-        console.log("this is the transaction")
+        setAccountBalance(accountBalance)
         cart.forEach((item) => {
-            console.log(item)
             const formData = {
                 user_id: user.id,
                 item_id: item.id
@@ -200,7 +164,6 @@ function App() {
             })
                 .then(r => r.json())
                 .then(data => {
-                    console.log(data)
                     setCart([])
                     history.push(`/transactions`)
                 })
@@ -230,7 +193,7 @@ function App() {
             <h5>Formerly Andez Nuts</h5>
             <div>
                 <button className="login" onClick={togglePop} >{currentUser ? "Profile" : "Log In"}</button>
-                {seen ? <Login toggle={togglePop} currentUser={currentUser} setCurrentUser={setCurrentUser} admin={admin} users={users} onAddUser={handleAddUser}/> : null}
+                {seen ? <Login toggle={togglePop} currentUser={currentUser} setCurrentUser={setCurrentUser} users={users} onAddUser={handleAddUser} onUserDelete={handleUserDelete}/> : null}
             </div>
             </header>
             {currentUser ? <NavBar admin={admin} CartCounter={CartCounter}/> : seen ? null : <h2 className="please">Please Log In</h2>}
@@ -239,10 +202,10 @@ function App() {
                     <Home currentUser={currentUser}/>
                 </Route>
                 <Route exact path="/shoppingcart">
-                    <Cart CartCounter={CartCounter} cart={cart} currentUser={currentUser} items={items} vendors={vendors} onClearCart={handleClearCart} onCheckOut={handleCheckOut} onTransaction={handleTransaction}/>
+                    <Cart cart={cart} currentUser={currentUser} onClearCart={handleClearCart} onCheckOut={handleCheckOut}/>
                 </Route>
                 <Route exact path="/items">
-                    <ItemList items={items} vendors={vendors}/>
+                    <ItemList items={items}/>
                 </Route>
                 <Route exact path="/transactions">
                     <Transactions currentUser={currentUser}/>
@@ -252,7 +215,7 @@ function App() {
                     <ItemNew key={items.id} onItemAdd={handleItemAdd}/>
                 </Route> : null }
                 <Route exact path="/items/:id">
-                    <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
+                    <ItemDetail admin={admin} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
                 </Route>
                 <Route exact path="/vendors">
                     <VendorList items={items} vendors={vendors}/>
@@ -266,7 +229,7 @@ function App() {
                 </Route>
                 {admin ? 
                 <Route exact path="/users">
-                    <Users users={users} onUserDelete={handleUserDelete} onAccountBalanceUpdate={handleAccountBalanceUpdate}/>
+                    <Users users={users} onUserDelete={handleUserDelete}/>
                 </Route> : null }
                 <Route path="*">
                     <h1>404 not found</h1>

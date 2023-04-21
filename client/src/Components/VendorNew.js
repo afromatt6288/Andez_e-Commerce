@@ -15,8 +15,7 @@ function VendorNew({onVendorAdd}) {
                 vendor_name: vendorName,
                 vendor_email: vendorEmail,
                 vendor_address: vendorAddress,
-                vendor_account_balance: vendorAccountBalance,
-                // items: {},
+                vendor_account_balance: vendorAccountBalance
             }
         fetch("/vendors", {
             method: "POST",

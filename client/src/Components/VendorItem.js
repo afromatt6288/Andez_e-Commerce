@@ -8,7 +8,7 @@ function VendorItem({ vendor }) {
         <section id="vendors">
             <div className="vendor-item">
                 <Link to={`/vendors/${id}`}>
-                    <p>{vendor_name}</p>
+                    <p>{vendor_name} | #{id}</p>
                 </Link>
                 <p>{vendor_email}</p>
                 <p>{vendor_address}</p>

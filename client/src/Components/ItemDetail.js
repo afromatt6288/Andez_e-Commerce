@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom"
 import { Card } from "semantic-ui-react"
+import AddVendorByNameID from "./AddVendorByNameID";
 
 function ItemDetail({admin, onItemDelete, onAddToCart}) {
     const [item, setItem] = useState(null);
@@ -37,7 +38,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
         <section>
             <header className="detail-header">
                 <div className="container">
-                    <span className="highlight">{name}</span>
+                    <span className="highlight">{name} | #{id}</span>
                 </div>
             </header>
             <div className="detail-intro">
@@ -53,7 +54,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                         {allvendors && allvendors.map((vendor) => (
                             <div key={vendor.id}>
                                 <Link to={`/vendors/${vendor.id}`}>
-                                    <h4>{vendor.vendor_name}</h4>
+                                    <h4>{vendor.vendor_name} | #{vendor.id}</h4>
                                 </Link>
                             </div>
                         ))}
@@ -75,6 +76,7 @@ function ItemDetail({admin, onItemDelete, onAddToCart}) {
                         🗑
                     </span>
                 </button>
+                <AddVendorByNameID itemID={id}></AddVendorByNameID>
             </div>
             ) : null}
         </section>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function UserNew({onNewUser, toggle, setUser}) {
+function UserNew({onNewUser, toggle}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -30,7 +30,6 @@ function UserNew({onNewUser, toggle, setUser}) {
         })
             .then(r => r.json())
             .then(user => {
-                // setUser(user)
                 onNewUser(user)
                 history.push(`/`)
             })

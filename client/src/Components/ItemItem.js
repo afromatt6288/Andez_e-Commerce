@@ -9,7 +9,7 @@ function ItemItem({ item }) {
             <Link to={`/items/${id}`}>
                 <img className="img-thumb" src={image} alt={name} />
             </Link>
-            <p>{name}</p>
+            <p>{name} | #{id}</p>
             <p>{category}</p>
             <p>${price} Nuts</p>
         </div>
