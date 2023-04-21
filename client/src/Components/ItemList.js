@@ -37,7 +37,7 @@ function ItemList({items, onAddToCart}) {
             <div className="item-list">
                 <Card.Group className="cards" itemsPerRow={6}>
                     {displayedItems.map((item)=> (
-                    <ItemItem key={item.id} item={item} handleAddToCart={onAddToCart} />
+                    <ItemItem key={item.id} item={item} handleAddToCart={onAddToCart} isInCart = {false}/>
                     ))}
                 </Card.Group>
             </div>

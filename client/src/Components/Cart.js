@@ -17,7 +17,7 @@ function Cart({currentUser, cart, onClearCart, onCheckOut}) {
             <div className="cart-list">
                 <Card.Group className="cards" itemsPerRow={6}>
                     {cart.map((item)=> (
-                        <ItemItem key={item.id} item={item} />
+                        <ItemItem key={item.id} item={item} isInCart = {true}/>
                         ))}
                 </Card.Group>
             </div>
