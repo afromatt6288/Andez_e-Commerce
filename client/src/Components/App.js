@@ -231,10 +231,6 @@ function App() {
                 </Route> : null }
                 <Route exact path="/vendors/:id">
                     <VendorDetail admin={admin} onVendorDelete={handleVendorDelete}/>
-                    {admin ?
-                        <VendorItemNew onItemAdd={handleItemAdd} handleAddItemVendor={handleAddItemVendor}></VendorItemNew>
-
-                    : null}
                 </Route>
                 {admin ? 
                 <Route exact path="/users">
