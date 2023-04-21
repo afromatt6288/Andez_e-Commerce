@@ -12,8 +12,7 @@ import Cart from "./Cart"
 import Login from "./Login"
 import Users from "./Users"
 import VendorItemNew from "./VendorItemNew";
-import ItemVendorNew
- from "../ItemVendorNew";
+import ItemVendorNew from "./ItemVendorNew";
 function App() {
     const [currentUser, setCurrentUser] = useState("")
     const [seen, setSeen] = useState(false)
