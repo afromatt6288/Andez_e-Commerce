@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ItemItem({ item , handleAddToCart}) {
+function ItemItem({ item , handleAddToCart, isInCart}) {
     const { id, name, image, price, category} = item
 
     return (
@@ -14,7 +14,7 @@ function ItemItem({ item , handleAddToCart}) {
             <div className="cart-button-card">
 
                 <p>${price} Nuts</p>
-                <button type="submit" onClick={()=>{handleAddToCart(item)}}>+</button>
+                {isInCart ?  null : <button type="submit" onClick={()=>{handleAddToCart(item)}}>+</button> }
 
             </div>
         </div>
