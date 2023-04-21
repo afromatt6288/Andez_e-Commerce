@@ -68,6 +68,15 @@ button {
   justify-content: space-between;
 }
 
+.cart-button-card{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cart-button-card p{
+  margin-right: 10px;
+}
+
 .cart-list {
   border: 5px groove #7010ac; 
   border-radius: 30px;  
@@ -775,3 +784,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+

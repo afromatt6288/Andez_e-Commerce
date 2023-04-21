@@ -210,7 +210,7 @@ function App() {
                     <Cart cart={cart} currentUser={currentUser} onClearCart={handleClearCart} onCheckOut={handleCheckOut}/>
                 </Route>
                 <Route exact path="/items">
-                    <ItemList items={items}/>
+                    <ItemList items={items} onAddToCart={handleAddToCart}/>
                 </Route>
                 <Route exact path="/transactions">
                     <Transactions currentUser={currentUser}/>

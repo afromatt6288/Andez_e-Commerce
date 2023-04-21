@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ItemItem({ item }) {
+function ItemItem({ item , handleAddToCart}) {
     const { id, name, image, price, category} = item
 
     return (
@@ -11,7 +11,12 @@ function ItemItem({ item }) {
             </Link>
             <p>{name} | #{id}</p>
             <p>{category}</p>
-            <p>${price} Nuts</p>
+            <div className="cart-button-card">
+
+                <p>${price} Nuts</p>
+                <button type="submit" onClick={()=>{handleAddToCart(item)}}>+</button>
+
+            </div>
         </div>
     );
 }
