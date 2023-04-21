@@ -232,7 +232,9 @@ function App() {
                 </Route> : null }
                 <Route exact path="/items/:id">
                     <ItemDetail admin={admin} items={items} onItemDelete={handleItemDelete} onAddToCart={handleAddToCart}/>
+                    {admin ? 
                     <ItemVendorNew onVendorAdd={handleVendorAdd} handleAddItemVendor={handleAddItemVendor}></ItemVendorNew>
+                    :null}
                 </Route>
                 <Route exact path="/vendors">
                     <VendorList items={items} vendors={vendors}/>
@@ -243,7 +245,10 @@ function App() {
                 </Route> : null }
                 <Route exact path="/vendors/:id">
                     <VendorDetail admin={admin} onVendorDelete={handleVendorDelete}/>
-                    <VendorItemNew onItemAdd={handleItemAdd} handleAddItemVendor={handleAddItemVendor}></VendorItemNew>
+                    {admin ?
+                        <VendorItemNew onItemAdd={handleItemAdd} handleAddItemVendor={handleAddItemVendor}></VendorItemNew>
+
+                    : null}
                 </Route>
                 {admin ? 
                 <Route exact path="/users">
